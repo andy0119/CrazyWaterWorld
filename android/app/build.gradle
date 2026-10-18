@@ -1,0 +1,3 @@
+plugins { id 'com.android.application' }
+android { namespace 'com.aurora.rebuild'; compileSdk 35
+ defaultConfig { applicationId 'com.aurora.rebuild'; minSdk 24; targetSdk 35; versionCode 1; versionName '0.1.0' } }
