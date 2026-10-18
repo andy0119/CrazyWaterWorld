@@ -1,0 +1,1 @@
+Game client transport derives from xutongxue233/crazywaterword (ISC), see ../wx-game/NOTICE.txt. Douyin SDK and game protocol are original game assets copied from the local official client for integration testing. No user cookies are copied. QR authorization source is not yet connected. Game login and role lookup remain unverified.

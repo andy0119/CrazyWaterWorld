@@ -1,0 +1,4907 @@
+[
+  {
+    "key": "basic",
+    "tab": "基础",
+    "title": "基础设置",
+    "fields": [
+      {
+        "key": "basic_0",
+        "label": "重连间隔（分钟）",
+        "type": "number",
+        "default": 0.5,
+        "min": 0.1,
+        "step": 0.1,
+        "source_path": "basic.reconnectInterval",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "被登出或连接断开后，等待此分钟数再重新登入；授权已过期时停止并要求重新扫码。"
+      }
+    ]
+  },
+  {
+    "key": "island.building",
+    "tab": "基地",
+    "title": "建筑",
+    "fields": [
+      {
+        "key": "building_0",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "检查等级、人口、库存、蓝图保留与禁止名单；每轮最多3座。额外条件尚未确认的建筑跳过。"
+      },
+      {
+        "key": "building_1",
+        "label": "自动领取产出",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.collect",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "建筑产出"
+      },
+      {
+        "key": "building_6",
+        "label": "自动完工",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.finish",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "到期建筑完工"
+      },
+      {
+        "key": "building_3",
+        "label": "自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.upgrade",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "检查等级、人口、库存、蓝图保留与禁止名单；每轮最多3座。额外条件尚未确认的建筑跳过。"
+      },
+      {
+        "key": "building_2",
+        "label": "自动建造",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.build",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "检查等级、人口、库存、蓝图保留与禁止名单；每轮最多3座。额外条件尚未确认的建筑跳过。"
+      },
+      {
+        "key": "building_5",
+        "label": "禁止建筑",
+        "type": "list",
+        "default": [],
+        "source_path": "island.building.disabledBuildings",
+        "execution": "wechat",
+        "help": "",
+        "options": [
+          "仓库",
+          "钓鱼椅",
+          "拾荒船",
+          "潜水船坞",
+          "训练营"
+        ],
+        "execution_note": "检查等级、人口、库存、蓝图保留与禁止名单；每轮最多3座。额外条件尚未确认的建筑跳过。"
+      },
+      {
+        "key": "building_4",
+        "label": "蓝图保留数量",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.building.blueprintReserve",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "检查等级、人口、库存、蓝图保留与禁止名单；每轮最多3座。额外条件尚未确认的建筑跳过。"
+      },
+      {
+        "key": "building_7",
+        "label": "自动加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.speedUp",
+        "execution": "wechat",
+        "help": "仅使用库存加速器；遵守禁止建筑名单，每轮最多处理三座，核对消耗与施工进度。"
+      },
+      {
+        "key": "ref_island_building_adSpeedUp",
+        "label": "广告加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.building.adSpeedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "island.factory",
+    "tab": "基地",
+    "title": "工厂",
+    "fields": [
+      {
+        "key": "factory_0",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.factory.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      },
+      {
+        "key": "ref_island_factory_gain",
+        "label": "自动领取",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.factory.gain",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "工厂成品"
+      },
+      {
+        "key": "ref_island_factory_autoProduce",
+        "label": "自动生产",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.factory.autoProduce",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      },
+      {
+        "key": "ref_island_factory_priorityProduce",
+        "label": "按优先顺序生产",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.factory.priorityProduce",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      },
+      {
+        "key": "ref_island_factory_proposedPriority",
+        "label": "生产优先顺序",
+        "type": "list",
+        "default": [],
+        "source_path": "island.factory.proposedPriority",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      },
+      {
+        "key": "ref_island_factory_speedUpForDemand",
+        "label": "按订单需求加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.factory.speedUpForDemand",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_factory_speedUpForDemandMinRemainSecs",
+        "label": "需求加速剩余时间下限（秒）",
+        "type": "number",
+        "default": 60,
+        "min": 0,
+        "source_path": "island.factory.speedUpForDemandMinRemainSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_factory_speedUpSources",
+        "label": "加速来源",
+        "type": "list",
+        "default": [],
+        "source_path": "island.factory.speedUpSources",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_factory_disabledFactories",
+        "label": "禁止工厂",
+        "type": "list",
+        "default": [],
+        "source_path": "island.factory.disabledFactories",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      },
+      {
+        "key": "ref_island_factory_seedStockTargets",
+        "label": "种子库存目标",
+        "type": "map",
+        "default": {},
+        "source_path": "island.factory.seedStockTargets",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_factory_freshWaterKeepStock",
+        "label": "淡水保留库存",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.factory.freshWaterKeepStock",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依保存设置检查；结果须读回确认。生产消耗现有材料，不使用钻石加速。"
+      }
+    ]
+  },
+  {
+    "key": "island.farm",
+    "tab": "基地",
+    "title": "农田（Lv.11 解锁）",
+    "fields": [
+      {
+        "key": "farm_0",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.farm.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "农田Lv.11解锁；按顺序检查库存与在种产量，读回种子消耗及成熟时间。库存目标0表示不设上限。"
+      },
+      {
+        "key": "farm_1",
+        "label": "自动收割",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.farm.harvest",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "成熟农作物收成"
+      },
+      {
+        "key": "farm_2",
+        "label": "自动种植",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.farm.plant",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "农田Lv.11解锁；按顺序检查库存与在种产量，读回种子消耗及成熟时间。库存目标0表示不设上限。"
+      },
+      {
+        "key": "farm_3",
+        "label": "种植方式",
+        "type": "select",
+        "default": "囤货种植",
+        "options": [
+          "囤货种植",
+          "按订单种植"
+        ],
+        "source_path": "island.farm.plantMode",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "农田Lv.11解锁；按顺序检查库存与在种产量，读回种子消耗及成熟时间。库存目标0表示不设上限。"
+      },
+      {
+        "key": "farm_4",
+        "label": "种植顺序、囤多少",
+        "type": "crops",
+        "default": [
+          {
+            "name": "小麦",
+            "limit": 0
+          },
+          {
+            "name": "玉米",
+            "limit": 0
+          },
+          {
+            "name": "土豆",
+            "limit": 0
+          },
+          {
+            "name": "番茄",
+            "limit": 0
+          },
+          {
+            "name": "胡萝卜",
+            "limit": 0
+          },
+          {
+            "name": "卷心菜",
+            "limit": 0
+          },
+          {
+            "name": "大豆",
+            "limit": 0
+          },
+          {
+            "name": "南瓜",
+            "limit": 0
+          },
+          {
+            "name": "辣椒",
+            "limit": 0
+          },
+          {
+            "name": "茄子",
+            "limit": 0
+          },
+          {
+            "name": "花菜",
+            "limit": 0
+          },
+          {
+            "name": "可可豆",
+            "limit": 0
+          },
+          {
+            "name": "橡胶",
+            "limit": 0
+          }
+        ],
+        "source_path": "island.farm.cropPriorities",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "农田Lv.11解锁；按顺序检查库存与在种产量，读回种子消耗及成熟时间。库存目标0表示不设上限。"
+      },
+      {
+        "key": "ref_island_farm_speedUp",
+        "label": "自动加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.farm.speedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_farm_speedUpSources",
+        "label": "加速来源",
+        "type": "list",
+        "default": [],
+        "source_path": "island.farm.speedUpSources",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "farm_5",
+        "label": "缺种子开选种厂",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.farm.seedOnDemand",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "gather",
+    "tab": "基地",
+    "title": "采集",
+    "fields": [
+      {
+        "key": "gather_0",
+        "label": "自动钓鱼",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.fishing",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "使用服务器实际海面对象及奖励核对；满仓继续仅由此开关控制。未包含需客户端操作的打捞／潜水小游戏。"
+      },
+      {
+        "key": "gather_1",
+        "label": "自动打捞",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.floater",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "使用服务器实际海面对象及奖励核对；满仓继续仅由此开关控制。未包含需客户端操作的打捞／潜水小游戏。"
+      },
+      {
+        "key": "gather_2",
+        "label": "满仓继续打捞",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.floaterCollectWhenFull",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "使用服务器实际海面对象及奖励核对；满仓继续仅由此开关控制。未包含需客户端操作的打捞／潜水小游戏。"
+      },
+      {
+        "key": "gather_3",
+        "label": "钥匙开箱",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.openChests",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "gather_4",
+        "label": "自动潜水",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.diving",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "gather_5",
+        "label": "自动拾荒",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.salvage",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "gather_6",
+        "label": "钓鱼升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.enhance.fishing",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依目标等级与建筑条件检查，强化会消耗配置指定材料／金币；每轮每项最多5次。"
+      },
+      {
+        "key": "gather_7",
+        "label": "潜水升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.enhance.diving",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依目标等级与建筑条件检查，强化会消耗配置指定材料／金币；每轮每项最多5次。"
+      },
+      {
+        "key": "gather_8",
+        "label": "打捞升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "gather.enhance.salvage",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依目标等级与建筑条件检查，强化会消耗配置指定材料／金币；每轮每项最多5次。"
+      },
+      {
+        "key": "gather_9",
+        "label": "目标等级",
+        "type": "number",
+        "default": 2,
+        "min": 2,
+        "source_path": "gather.enhanceTargetLevel",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依目标等级与建筑条件检查，强化会消耗配置指定材料／金币；每轮每项最多5次。"
+      }
+    ]
+  },
+  {
+    "key": "island.resident",
+    "tab": "基地",
+    "title": "居民需求（Lv.2 解锁）",
+    "fields": [
+      {
+        "key": "residents_0",
+        "label": "自动满足",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.resident.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_7",
+        "label": "自动领取进度奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.resident.orderReward",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "居民订单进度奖励"
+      },
+      {
+        "key": "residents_3",
+        "label": "不准消耗",
+        "type": "list",
+        "default": [],
+        "source_path": "island.resident.blockedMaterials",
+        "execution": "wechat",
+        "help": "",
+        "placeholder": "未选择；登入后可读取可选名单",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_1",
+        "label": "跳过农作物订单",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.resident.skipCropOrders",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_2",
+        "label": "跳过需生产的订单",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.resident.skipProductionRequiredOrders",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_4",
+        "label": "最低经验",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.resident.minExp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_5",
+        "label": "最低金币",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.resident.minGold",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      },
+      {
+        "key": "residents_6",
+        "label": "每日满足上限",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.resident.dailyCap",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      }
+    ]
+  },
+  {
+    "key": "island.cargo",
+    "tab": "基地",
+    "title": "贸易港口（Lv.10 解锁）",
+    "fields": [
+      {
+        "key": "trade_0",
+        "label": "自动贸易",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.cargo",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依账号保存设置执行，并读取实际状态核对；未解锁或材料不足跳过。"
+      },
+      {
+        "key": "trade_1",
+        "label": "每日装货上限（次）",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.cargoDailyLimit",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依账号保存设置执行，并读取实际状态核对；未解锁或材料不足跳过。"
+      }
+    ]
+  },
+  {
+    "key": "island.choiceEvent",
+    "tab": "基地",
+    "title": "随机事件",
+    "fields": [
+      {
+        "key": "event_0",
+        "label": "自动处理",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.choiceEvent",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "island.pet",
+    "tab": "基地",
+    "title": "海兽培育室（Lv.23 解锁）",
+    "fields": [
+      {
+        "key": "beast_0",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "已串接领取与读回核对；未解锁时记录原因并跳过。"
+      },
+      {
+        "key": "beast_1",
+        "label": "自动领取",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.claim",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "已串接领取与读回核对；未解锁时记录原因并跳过。"
+      },
+      {
+        "key": "beast_2",
+        "label": "自动培育",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.breed",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "beast_3",
+        "label": "培育种类",
+        "type": "list",
+        "default": [],
+        "source_path": "island.pet.breedSpecies",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "beast_4",
+        "label": "最高品质",
+        "type": "text",
+        "default": "",
+        "source_path": "island.pet.breedMinQuality",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "beast_5",
+        "label": "允许消耗万能图纸",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.universal",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "beast_6",
+        "label": "自动喂养",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.feed",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_pet_feedDailyLimit",
+        "label": "每日喂养上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.pet.feedDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "beast_7",
+        "label": "自动放生",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.decompose",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_pet_decomposeBelowQuality",
+        "label": "分解／放生品质上限",
+        "type": "text",
+        "default": "",
+        "source_path": "island.pet.decomposeBelowQuality",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "petwar",
+    "tab": "基地",
+    "title": "海兽战备室（Lv.25 解锁）",
+    "fields": [
+      {
+        "key": "beastwar_1",
+        "label": "自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.levelUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.25；只升级已在战备室服役的海兽，消耗宠物经验，每轮最多5次；每日消耗计数保留至重启后。"
+      },
+      {
+        "key": "beastwar_2",
+        "label": "目标等级",
+        "type": "number",
+        "default": 2,
+        "min": 2,
+        "source_path": "island.pet.levelUpTargetLevel",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.25；只升级已在战备室服役的海兽，消耗宠物经验，每轮最多5次；每日消耗计数保留至重启后。"
+      },
+      {
+        "key": "ref_island_pet_levelUpPetIds",
+        "label": "指定海兽",
+        "type": "list",
+        "default": [],
+        "source_path": "island.pet.levelUpPetIds",
+        "execution": "wechat",
+        "help": "",
+        "placeholder": "未选择；登入后可读取可选名单",
+        "execution_note": "Lv.25；只升级已在战备室服役的海兽，消耗宠物经验，每轮最多5次；每日消耗计数保留至重启后。"
+      },
+      {
+        "key": "ref_island_pet_levelUpDailyExpLimit",
+        "label": "每日经验消耗上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.pet.levelUpDailyExpLimit",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.25；只升级已在战备室服役的海兽，消耗宠物经验，每轮最多5次；每日消耗计数保留至重启后。"
+      },
+      {
+        "key": "beastwar_0",
+        "label": "自动进阶",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.pet.advance",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_pet_advanceRooms",
+        "label": "进阶战备室",
+        "type": "list",
+        "default": [],
+        "source_path": "island.pet.advanceRooms",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "ref_island_pet_advanceFeedDailyLimit",
+        "label": "每日进阶投喂上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.pet.advanceFeedDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_pet_advanceDailyLimit",
+        "label": "每日进阶上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.pet.advanceDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "island.equip",
+    "tab": "基地",
+    "title": "装备厂（Lv.17 解锁）",
+    "fields": [
+      {
+        "key": "equipment_0",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "已串接领取与读回核对；未解锁时记录原因并跳过。"
+      },
+      {
+        "key": "equipment_1",
+        "label": "自动领取",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.collect",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "已串接领取与读回核对；未解锁时记录原因并跳过。"
+      },
+      {
+        "key": "equipment_2",
+        "label": "自动打造",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.make",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "equipment_3",
+        "label": "打造类型",
+        "type": "list",
+        "default": [],
+        "source_path": "island.equip.makeTypes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          "防具",
+          "枪械",
+          "兵刃"
+        ]
+      },
+      {
+        "key": "equipment_4",
+        "label": "打造品质",
+        "type": "list",
+        "default": [],
+        "source_path": "island.equip.makeQualities",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          "稀有",
+          "史诗",
+          "传说",
+          "超凡"
+        ]
+      },
+      {
+        "key": "equipment_5",
+        "label": "允许消耗万能图纸",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.universal",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_equip_universalTypes",
+        "label": "万能图纸使用类型",
+        "type": "list",
+        "default": [],
+        "source_path": "island.equip.universalTypes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          "防具",
+          "枪械",
+          "兵刃"
+        ]
+      },
+      {
+        "key": "equipment_6",
+        "label": "自动加速打造",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.speedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "equipment_7",
+        "label": "加速时间下限（秒）",
+        "type": "number",
+        "default": 300,
+        "source_path": "island.equip.speedUpMinRemainSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "equipment_8",
+        "label": "自动分解",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.equip.decompose",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_equip_decomposeBelowQuality",
+        "label": "分解／放生品质上限",
+        "type": "text",
+        "default": "",
+        "source_path": "island.equip.decomposeBelowQuality",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "island.museum",
+    "tab": "基地",
+    "title": "博物馆（Lv.28 解锁）",
+    "fields": [
+      {
+        "key": "museum_1",
+        "label": "自动探宝",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.museum.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "museum_0",
+        "label": "自动领取人气币",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.museum.collectRevenue",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "已串接领取与读回核对；未解锁时记录原因并跳过。"
+      },
+      {
+        "key": "museum_2",
+        "label": "探宝倍数",
+        "type": "number",
+        "default": 3,
+        "min": 1,
+        "source_path": "island.museum.factor",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "museum_3",
+        "label": "按材料调整倍数",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.museum.conditionalFactorEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "museum_4",
+        "label": "命中材料名单",
+        "type": "list",
+        "default": [],
+        "source_path": "island.museum.conditionalMaterials",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "museum_5",
+        "label": "库存阈值（件）",
+        "type": "number",
+        "default": 0,
+        "source_path": "island.museum.conditionalStockThreshold",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "museum_6",
+        "label": "命中时倍数",
+        "type": "number",
+        "default": 1,
+        "min": 1,
+        "source_path": "island.museum.conditionalFactor",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "museum_7",
+        "label": "探宝地图",
+        "type": "list",
+        "default": [],
+        "source_path": "island.museum.maps",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "museum_8",
+        "label": "使用探险指南",
+        "type": "bool",
+        "default": false,
+        "source_path": "island.museum.speedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_museum_speedUpDailyLimit",
+        "label": "每日加速上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.museum.speedUpDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_island_museum_speedUpKeepStock",
+        "label": "加速道具保留数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "island.museum.speedUpKeepStock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "hero",
+    "tab": "英雄",
+    "title": "英雄养成",
+    "fields": [
+      {
+        "key": "ref_hero_levelUp",
+        "label": "自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.levelUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_hero_starUp",
+        "label": "自动升星",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.starUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_hero_skillLevelUp",
+        "label": "自动升级技能",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.skillLevelUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_hero_skillAdvance",
+        "label": "自动进阶技能",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.skillAdvance",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_exclusiveLevelUp",
+        "label": "专属装备升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.exclusiveLevelUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_exclusiveStarUp",
+        "label": "专属装备升星",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.exclusiveStarUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_equipEnhance",
+        "label": "装备强化",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.equipEnhance",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_badgeEnhance",
+        "label": "徽章强化",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.badgeEnhance",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_heroes",
+        "label": "指定英雄",
+        "type": "list",
+        "default": [],
+        "source_path": "hero.heroes",
+        "execution": "wechat",
+        "help": "",
+        "placeholder": "未选择；登入后可读取可选名单",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_hero_appoint",
+        "label": "自动委任",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.appoint",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_show",
+        "label": "自动看技能视频",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.show",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_fragRecruit",
+        "label": "碎片招募",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.fragRecruit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_recruit_enabled",
+        "label": "招募 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.recruit.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_recruit_paid",
+        "label": "招募 · 允许付费招募",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.recruit.paid",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_recruit_task",
+        "label": "招募 · 满足每日任务",
+        "type": "bool",
+        "default": false,
+        "source_path": "hero.recruit.task",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_hero_recruit_dailyLimit",
+        "label": "招募 · 每日次数上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "hero.recruit.dailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "antique",
+    "tab": "藏品",
+    "title": "藏品与套装",
+    "fields": [
+      {
+        "key": "ref_antique_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_upgrade",
+        "label": "自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.upgrade",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_activate",
+        "label": "自动激活",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.activate",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_suit_enabled",
+        "label": "套装 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.suit.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_suit_activate",
+        "label": "套装 · 自动激活",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.suit.activate",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_suit_levelUp",
+        "label": "套装 · 自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.suit.levelUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_suit_levelUpSuitIds",
+        "label": "套装 · 指定升级套装",
+        "type": "list",
+        "default": [],
+        "source_path": "antique.suit.levelUpSuitIds",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按材料、等级及指定名单检查；仅消耗专属碎片，不自动消耗万能碎片；每轮最多12次。"
+      },
+      {
+        "key": "ref_antique_recruit_enabled",
+        "label": "招募 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.recruit.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_antique_recruit_paid",
+        "label": "招募 · 允许付费招募",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.recruit.paid",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_antique_recruit_task",
+        "label": "招募 · 满足每日任务",
+        "type": "bool",
+        "default": false,
+        "source_path": "antique.recruit.task",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "battle.stage",
+    "tab": "挑战",
+    "title": "闯关与挂机",
+    "fields": [
+      {
+        "key": "ref_battle_stage_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.stage.enabled",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "主线自动闯关（每轮最多3场）"
+      },
+      {
+        "key": "ref_battle_stage_samePowerRetryCount",
+        "label": "相同战力重试次数",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "battle.stage.samePowerRetryCount",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "首次失败后额外重试次数；0 表示不重试。按保存的次数执行；保存后停止并重新开始任务生效。"
+      },
+      {
+        "key": "ref_battle_stage_afk_enabled",
+        "label": "挂机 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.stage.afk.enabled",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "到期挂机收益（不加倍）"
+      },
+      {
+        "key": "ref_battle_stage_afk_levelUp",
+        "label": "挂机 · 自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.stage.afk.levelUp",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依主线进度与挂机徽章库存升级，每轮最多5级；读回等级及消耗核对。"
+      },
+      {
+        "key": "ref_battle_stage_afk_claimAfterHours",
+        "label": "挂机 · 挂机领取间隔（小时）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "battle.stage.afk.claimAfterHours",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "按当前账号保存值执行；0 表示不设限制，挂机间隔0表示到期领取。"
+      }
+    ]
+  },
+  {
+    "key": "battle.arena",
+    "tab": "挑战",
+    "title": "竞技场",
+    "fields": [
+      {
+        "key": "ref_battle_arena_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.arena.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "需竞技场建筑建成；依执行时间与剩余次数运行，每轮最多3场。扫荡开启时优先扫荡。"
+      },
+      {
+        "key": "ref_battle_arena_challenge",
+        "label": "自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.arena.challenge",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "需竞技场建筑建成；依执行时间与剩余次数运行，每轮最多3场。扫荡开启时优先扫荡。"
+      },
+      {
+        "key": "ref_battle_arena_sweep",
+        "label": "自动扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.arena.sweep",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "需竞技场建筑建成；依执行时间与剩余次数运行，每轮最多3场。扫荡开启时优先扫荡。"
+      },
+      {
+        "key": "ref_battle_arena_executeTime",
+        "label": "执行时间",
+        "type": "text",
+        "default": "",
+        "source_path": "battle.arena.executeTime",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "需竞技场建筑建成；依执行时间与剩余次数运行，每轮最多3场。扫荡开启时优先扫荡。"
+      }
+    ]
+  },
+  {
+    "key": "battle.trial",
+    "tab": "挑战",
+    "title": "试炼",
+    "fields": [
+      {
+        "key": "ref_battle_trial_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_trial_samePowerRetryCount",
+        "label": "相同战力重试次数",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "battle.trial.samePowerRetryCount",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "首次失败后额外重试次数；0 表示不重试。按保存的次数执行；保存后停止并重新开始任务生效。"
+      },
+      {
+        "key": "ref_battle_trial_heroExp_challenge",
+        "label": "英雄经验试炼 · 自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.heroExp.challenge",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "英雄经验试炼（需试炼总开关）"
+      },
+      {
+        "key": "ref_battle_trial_heroExp_rubySweep",
+        "label": "英雄经验试炼 · 允许钻石扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.heroExp.rubySweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_trial_forge_challenge",
+        "label": "锻造试炼 · 自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.forge.challenge",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "强化石试炼（需试炼总开关）"
+      },
+      {
+        "key": "ref_battle_trial_forge_rubySweep",
+        "label": "锻造试炼 · 允许钻石扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.forge.rubySweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_trial_petExp_challenge",
+        "label": "海兽经验试炼 · 自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.petExp.challenge",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "海兽经验试炼（需试炼总开关）"
+      },
+      {
+        "key": "ref_battle_trial_petExp_rubySweep",
+        "label": "海兽经验试炼 · 允许钻石扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.trial.petExp.rubySweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "battle.league",
+    "tab": "挑战",
+    "title": "联赛",
+    "fields": [
+      {
+        "key": "ref_battle_league_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.league.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_league_challenge",
+        "label": "自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.league.challenge",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_league_reservePoints",
+        "label": "保留积分",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "battle.league.reservePoints",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_league_hangupReward",
+        "label": "领取挂机奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.league.hangupReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_league_danReward",
+        "label": "领取段位奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.league.danReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_battle_league_passReward",
+        "label": "领取通关奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.league.passReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "battle.expedition",
+    "tab": "挑战",
+    "title": "远征",
+    "fields": [
+      {
+        "key": "ref_battle_expedition_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.enabled",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_sweep",
+        "label": "自动扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.sweep",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_finalReward",
+        "label": "领取最终奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.finalReward",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_freePass",
+        "label": "使用免费通关",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.freePass",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_challenge",
+        "label": "自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.challenge",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_challengeStopOnHeroDeath",
+        "label": "英雄阵亡时停止挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "battle.expedition.challengeStopOnHeroDeath",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      },
+      {
+        "key": "ref_battle_expedition_challengeMinTeamHpPct",
+        "label": "挑战最低队伍血量（%）",
+        "type": "number",
+        "default": 40,
+        "min": 0,
+        "source_path": "battle.expedition.challengeMinTeamHpPct",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "Lv.30解锁；需已选择副本与阵容。按血量门槛及阵亡停止检查，战败后同战力暂停；每轮最多3关。"
+      }
+    ]
+  },
+  {
+    "key": "world",
+    "tab": "世界",
+    "title": "其他设置",
+    "fields": [
+      {
+        "key": "ref_world_report",
+        "label": "领取战报奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.report",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依账号保存设置执行，并读取实际状态核对；未解锁或材料不足跳过。"
+      }
+    ]
+  },
+  {
+    "key": "world.snap",
+    "tab": "世界",
+    "title": "对局",
+    "fields": [
+      {
+        "key": "ref_world_snap_pve",
+        "label": "自动人机对局",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.snap.pve",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_snap_freeMatch",
+        "label": "自动真人匹配",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.snap.freeMatch",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_snap_diamondMatchDailyLimit",
+        "label": "钻石匹配每日上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.snap.diamondMatchDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_snap_matchWindows",
+        "label": "匹配时间段",
+        "type": "list",
+        "default": [],
+        "source_path": "world.snap.matchWindows",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_snap_passReward",
+        "label": "领取通关奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.snap.passReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.fleet",
+    "tab": "世界",
+    "title": "舰队维护",
+    "fields": [
+      {
+        "key": "ref_world_fleet_powerMarginPct",
+        "label": "战力裕量（%）",
+        "type": "number",
+        "default": 115,
+        "min": 0,
+        "source_path": "world.fleet.powerMarginPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_fleet_repair",
+        "label": "自动修复舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.fleet.repair",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依账号保存设置执行，并读取实际状态核对；未解锁或材料不足跳过。"
+      },
+      {
+        "key": "ref_world_fleet_repairThresholds",
+        "label": "舰队修复阈值",
+        "type": "numbers",
+        "default": [
+          1600,
+          1600,
+          1600
+        ],
+        "source_path": "world.fleet.repairThresholds",
+        "execution": "wechat",
+        "help": "",
+        "execution_note": "依账号保存设置执行，并读取实际状态核对；未解锁或材料不足跳过。"
+      },
+      {
+        "key": "ref_world_fleet_repairSpeedUp",
+        "label": "自动加速修复",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.fleet.repairSpeedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_fleet_repairSpeedUpMinRemainSecs",
+        "label": "修复加速剩余时间下限（秒）",
+        "type": "number",
+        "default": 20,
+        "min": 0,
+        "source_path": "world.fleet.repairSpeedUpMinRemainSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_fleet_repairSpeedFleets",
+        "label": "允许加速的舰队",
+        "type": "list",
+        "default": [],
+        "source_path": "world.fleet.repairSpeedFleets",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_fleet_repairSpeedGameplays",
+        "label": "允许加速的玩法",
+        "type": "list",
+        "default": [],
+        "source_path": "world.fleet.repairSpeedGameplays",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.pirate",
+    "tab": "世界",
+    "title": "海盗",
+    "fields": [
+      {
+        "key": "ref_world_pirate_attack",
+        "label": "自动攻打",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.pirate.attack",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_attackTime_start",
+        "label": "攻打时间 · 开始时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "world.pirate.attackTime.start",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_attackTime_end",
+        "label": "攻打时间 · 结束时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "world.pirate.attackTime.end",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_attackTypes",
+        "label": "攻打类型",
+        "type": "list",
+        "default": [],
+        "source_path": "world.pirate.attackTypes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_sweep",
+        "label": "自动扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.pirate.sweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_sweepTime_start",
+        "label": "扫荡时间 · 开始时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "world.pirate.sweepTime.start",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_sweepTime_end",
+        "label": "扫荡时间 · 结束时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "world.pirate.sweepTime.end",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_pirate_sweepTypes",
+        "label": "扫荡类型",
+        "type": "list",
+        "default": [],
+        "source_path": "world.pirate.sweepTypes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.resField",
+    "tab": "世界",
+    "title": "资源地",
+    "fields": [
+      {
+        "key": "ref_world_resField_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.resField.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_resField_factory",
+        "label": "工厂占领数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.resField.factory",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_resField_oasis",
+        "label": "绿洲占领数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.resField.oasis",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_resField_tank",
+        "label": "油罐占领数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.resField.tank",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.chipMine",
+    "tab": "世界",
+    "title": "芯片矿",
+    "fields": [
+      {
+        "key": "ref_world_chipMine_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_hours",
+        "label": "执行时间段",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.hours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_enabled",
+        "label": "舰队 1 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.0.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_levels",
+        "label": "舰队 1 · 目标等级",
+        "type": "number",
+        "default": 5,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.0.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_marchSpeedup",
+        "label": "舰队 1 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.0.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_marchSpeedupTargetSecs",
+        "label": "舰队 1 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.0.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_emptyOnly",
+        "label": "舰队 1 · 仅选择空矿",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.0.emptyOnly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_chaseEnabled",
+        "label": "舰队 1 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.0.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_chaseHours",
+        "label": "舰队 1 · 追击时长（小时）",
+        "type": "number",
+        "default": 48,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.0.chaseHours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_chaseBy",
+        "label": "舰队 1 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.0.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_chaseWord",
+        "label": "舰队 1 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.0.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_safeBy",
+        "label": "舰队 1 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.0.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_safeWord",
+        "label": "舰队 1 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.0.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_contestSwitchAfterLosses",
+        "label": "舰队 1 · 失败后切换次数",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.0.contestSwitchAfterLosses",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_contestOrder",
+        "label": "舰队 1 · 争夺顺序",
+        "type": "select",
+        "default": "lowToHigh",
+        "source_path": "world.chipMine.fleets.0.contestOrder",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "lowToHigh",
+            "label": "从低到高"
+          },
+          {
+            "value": "highToLow",
+            "label": "从高到低"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_0_contestDailyMax",
+        "label": "舰队 1 · 每日争夺上限",
+        "type": "number",
+        "default": 30,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.0.contestDailyMax",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_enabled",
+        "label": "舰队 2 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.1.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_levels",
+        "label": "舰队 2 · 目标等级",
+        "type": "number",
+        "default": 4,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.1.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_marchSpeedup",
+        "label": "舰队 2 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.1.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_marchSpeedupTargetSecs",
+        "label": "舰队 2 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.1.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_emptyOnly",
+        "label": "舰队 2 · 仅选择空矿",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.1.emptyOnly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_chaseEnabled",
+        "label": "舰队 2 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.1.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_chaseHours",
+        "label": "舰队 2 · 追击时长（小时）",
+        "type": "number",
+        "default": 48,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.1.chaseHours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_chaseBy",
+        "label": "舰队 2 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.1.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_chaseWord",
+        "label": "舰队 2 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.1.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_safeBy",
+        "label": "舰队 2 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.1.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_safeWord",
+        "label": "舰队 2 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.1.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_contestSwitchAfterLosses",
+        "label": "舰队 2 · 失败后切换次数",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.1.contestSwitchAfterLosses",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_contestOrder",
+        "label": "舰队 2 · 争夺顺序",
+        "type": "select",
+        "default": "lowToHigh",
+        "source_path": "world.chipMine.fleets.1.contestOrder",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "lowToHigh",
+            "label": "从低到高"
+          },
+          {
+            "value": "highToLow",
+            "label": "从高到低"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_1_contestDailyMax",
+        "label": "舰队 2 · 每日争夺上限",
+        "type": "number",
+        "default": 30,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.1.contestDailyMax",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_enabled",
+        "label": "舰队 3 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.2.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_levels",
+        "label": "舰队 3 · 目标等级",
+        "type": "number",
+        "default": 3,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.2.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_marchSpeedup",
+        "label": "舰队 3 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.2.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_marchSpeedupTargetSecs",
+        "label": "舰队 3 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.2.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_emptyOnly",
+        "label": "舰队 3 · 仅选择空矿",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.2.emptyOnly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_chaseEnabled",
+        "label": "舰队 3 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.chipMine.fleets.2.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_chaseHours",
+        "label": "舰队 3 · 追击时长（小时）",
+        "type": "number",
+        "default": 48,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.2.chaseHours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_chaseBy",
+        "label": "舰队 3 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.2.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_chaseWord",
+        "label": "舰队 3 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.2.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_safeBy",
+        "label": "舰队 3 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.chipMine.fleets.2.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_safeWord",
+        "label": "舰队 3 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.chipMine.fleets.2.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_contestSwitchAfterLosses",
+        "label": "舰队 3 · 失败后切换次数",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.2.contestSwitchAfterLosses",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_contestOrder",
+        "label": "舰队 3 · 争夺顺序",
+        "type": "select",
+        "default": "lowToHigh",
+        "source_path": "world.chipMine.fleets.2.contestOrder",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "lowToHigh",
+            "label": "从低到高"
+          },
+          {
+            "value": "highToLow",
+            "label": "从高到低"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_chipMine_fleets_2_contestDailyMax",
+        "label": "舰队 3 · 每日争夺上限",
+        "type": "number",
+        "default": 30,
+        "min": 0,
+        "source_path": "world.chipMine.fleets.2.contestDailyMax",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.radar",
+    "tab": "世界",
+    "title": "雷达情报",
+    "fields": [
+      {
+        "key": "ref_world_radar_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_pirate",
+        "label": "海盗",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.pirate",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_collectRes",
+        "label": "采集资源",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.collectRes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_citySpy",
+        "label": "城池侦察",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.citySpy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_other",
+        "label": "其他事件",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.other",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_fixed",
+        "label": "固定情报",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.fixed",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_radar_refugee",
+        "label": "流民事件",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.radar.refugee",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.worldBoss",
+    "tab": "世界",
+    "title": "世界首领",
+    "fields": [
+      {
+        "key": "ref_world_worldBoss_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.worldBoss.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_worldBoss_attackTimes",
+        "label": "攻打次数",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "world.worldBoss.attackTimes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.limitedBoss",
+    "tab": "世界",
+    "title": "机械蛞蝓",
+    "fields": [
+      {
+        "key": "ref_world_limitedBoss_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_limitedBossRecallLeadMin",
+        "label": "提前召回时间（分钟）",
+        "type": "number",
+        "default": 20,
+        "min": 0,
+        "source_path": "world.limitedBoss.limitedBossRecallLeadMin",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_dispatchHpPct",
+        "label": "派遣血量阈值（%）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.limitedBoss.dispatchHpPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_enabled",
+        "label": "舰队 1 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.0.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_recallChipMine",
+        "label": "舰队 1 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.0.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_marchSpeedupMode",
+        "label": "舰队 1 · 行军加速方式",
+        "type": "select",
+        "default": "off",
+        "source_path": "world.limitedBoss.fleets.0.marchSpeedupMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "off",
+            "label": "不加速"
+          },
+          {
+            "value": "always",
+            "label": "一直加速"
+          },
+          {
+            "value": "hp",
+            "label": "蛞蝓血量较低时加速"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_marchSpeedupHpPct",
+        "label": "舰队 1 · 行军加速血量阈值（%）",
+        "type": "number",
+        "default": 10,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.0.marchSpeedupHpPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_marchSpeedupTargetSecs",
+        "label": "舰队 1 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.0.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_0_moveNearCenter",
+        "label": "舰队 1 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.0.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_enabled",
+        "label": "舰队 2 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.1.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_recallChipMine",
+        "label": "舰队 2 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.1.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_marchSpeedupMode",
+        "label": "舰队 2 · 行军加速方式",
+        "type": "select",
+        "default": "off",
+        "source_path": "world.limitedBoss.fleets.1.marchSpeedupMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "off",
+            "label": "不加速"
+          },
+          {
+            "value": "always",
+            "label": "一直加速"
+          },
+          {
+            "value": "hp",
+            "label": "蛞蝓血量较低时加速"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_marchSpeedupHpPct",
+        "label": "舰队 2 · 行军加速血量阈值（%）",
+        "type": "number",
+        "default": 10,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.1.marchSpeedupHpPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_marchSpeedupTargetSecs",
+        "label": "舰队 2 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.1.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_1_moveNearCenter",
+        "label": "舰队 2 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.1.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_enabled",
+        "label": "舰队 3 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.2.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_recallChipMine",
+        "label": "舰队 3 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.2.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_marchSpeedupMode",
+        "label": "舰队 3 · 行军加速方式",
+        "type": "select",
+        "default": "off",
+        "source_path": "world.limitedBoss.fleets.2.marchSpeedupMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "off",
+            "label": "不加速"
+          },
+          {
+            "value": "always",
+            "label": "一直加速"
+          },
+          {
+            "value": "hp",
+            "label": "蛞蝓血量较低时加速"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_marchSpeedupHpPct",
+        "label": "舰队 3 · 行军加速血量阈值（%）",
+        "type": "number",
+        "default": 10,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.2.marchSpeedupHpPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_marchSpeedupTargetSecs",
+        "label": "舰队 3 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.limitedBoss.fleets.2.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_fleets_2_moveNearCenter",
+        "label": "舰队 3 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.fleets.2.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_limitedBoss_challengeReward",
+        "label": "领取挑战奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.limitedBoss.challengeReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.treasureLoot",
+    "tab": "世界",
+    "title": "搁浅的货轮（世界宝藏）",
+    "fields": [
+      {
+        "key": "ref_world_treasureLoot_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_enabled",
+        "label": "舰队 1 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_levels",
+        "label": "舰队 1 · 目标等级",
+        "type": "number",
+        "default": 5,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.0.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_hours",
+        "label": "舰队 1 · 执行时间段",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.hours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_marchSpeedup",
+        "label": "舰队 1 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_marchSpeedupTargetSecs",
+        "label": "舰队 1 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.0.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_recallChipMine",
+        "label": "舰队 1 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_recallChipMineLeadMin",
+        "label": "舰队 1 · 挖矿召回提前时间（分钟）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.0.recallChipMineLeadMin",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_attackMode",
+        "label": "舰队 1 · 攻打方式",
+        "type": "select",
+        "default": "untilCapped",
+        "source_path": "world.treasureLoot.fleets.0.attackMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "untilCapped",
+            "label": "打满为止"
+          },
+          {
+            "value": "unlimited",
+            "label": "无限攻打"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_maxProgress",
+        "label": "舰队 1 · 进度上限（%）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.0.maxProgress",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_followAlly",
+        "label": "舰队 1 · 跟随盟友",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.followAlly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_followWord",
+        "label": "舰队 1 · 跟随盟友名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.followWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_chaseEnabled",
+        "label": "舰队 1 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_chaseBy",
+        "label": "舰队 1 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.0.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_chaseWord",
+        "label": "舰队 1 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_safeBy",
+        "label": "舰队 1 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.0.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_safeWord",
+        "label": "舰队 1 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_repeatAttack",
+        "label": "舰队 1 · 重复攻击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.repeatAttack",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_fullRepair",
+        "label": "舰队 1 · 出征前完全修复",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.fullRepair",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_filterReward",
+        "label": "舰队 1 · 按奖励筛选",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.filterReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_rewardFilter",
+        "label": "舰队 1 · 奖励筛选名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.rewardFilter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_rewardFilterMode",
+        "label": "舰队 1 · 奖励筛选条件",
+        "type": "select",
+        "default": "all",
+        "source_path": "world.treasureLoot.fleets.0.rewardFilterMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "all",
+            "label": "全部命中"
+          },
+          {
+            "value": "any",
+            "label": "任意命中"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_rewardFilterCount",
+        "label": "舰队 1 · 奖励命中数量",
+        "type": "number",
+        "default": 2,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.0.rewardFilterCount",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_rewardBlock",
+        "label": "舰队 1 · 奖励排除名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.0.rewardBlock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_0_moveNearCenter",
+        "label": "舰队 1 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.0.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_enabled",
+        "label": "舰队 2 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_levels",
+        "label": "舰队 2 · 目标等级",
+        "type": "number",
+        "default": 4,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.1.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_hours",
+        "label": "舰队 2 · 执行时间段",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.hours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_marchSpeedup",
+        "label": "舰队 2 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_marchSpeedupTargetSecs",
+        "label": "舰队 2 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.1.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_recallChipMine",
+        "label": "舰队 2 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_recallChipMineLeadMin",
+        "label": "舰队 2 · 挖矿召回提前时间（分钟）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.1.recallChipMineLeadMin",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_attackMode",
+        "label": "舰队 2 · 攻打方式",
+        "type": "select",
+        "default": "untilCapped",
+        "source_path": "world.treasureLoot.fleets.1.attackMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "untilCapped",
+            "label": "打满为止"
+          },
+          {
+            "value": "unlimited",
+            "label": "无限攻打"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_maxProgress",
+        "label": "舰队 2 · 进度上限（%）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.1.maxProgress",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_followAlly",
+        "label": "舰队 2 · 跟随盟友",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.followAlly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_followWord",
+        "label": "舰队 2 · 跟随盟友名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.followWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_chaseEnabled",
+        "label": "舰队 2 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_chaseBy",
+        "label": "舰队 2 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.1.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_chaseWord",
+        "label": "舰队 2 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_safeBy",
+        "label": "舰队 2 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.1.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_safeWord",
+        "label": "舰队 2 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_repeatAttack",
+        "label": "舰队 2 · 重复攻击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.repeatAttack",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_fullRepair",
+        "label": "舰队 2 · 出征前完全修复",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.fullRepair",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_filterReward",
+        "label": "舰队 2 · 按奖励筛选",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.filterReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_rewardFilter",
+        "label": "舰队 2 · 奖励筛选名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.rewardFilter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_rewardFilterMode",
+        "label": "舰队 2 · 奖励筛选条件",
+        "type": "select",
+        "default": "all",
+        "source_path": "world.treasureLoot.fleets.1.rewardFilterMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "all",
+            "label": "全部命中"
+          },
+          {
+            "value": "any",
+            "label": "任意命中"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_rewardFilterCount",
+        "label": "舰队 2 · 奖励命中数量",
+        "type": "number",
+        "default": 2,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.1.rewardFilterCount",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_rewardBlock",
+        "label": "舰队 2 · 奖励排除名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.1.rewardBlock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_1_moveNearCenter",
+        "label": "舰队 2 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.1.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_enabled",
+        "label": "舰队 3 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_levels",
+        "label": "舰队 3 · 目标等级",
+        "type": "number",
+        "default": 3,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.2.levels",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_hours",
+        "label": "舰队 3 · 执行时间段",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.hours",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_marchSpeedup",
+        "label": "舰队 3 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_marchSpeedupTargetSecs",
+        "label": "舰队 3 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.2.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_recallChipMine",
+        "label": "舰队 3 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_recallChipMineLeadMin",
+        "label": "舰队 3 · 挖矿召回提前时间（分钟）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.2.recallChipMineLeadMin",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_attackMode",
+        "label": "舰队 3 · 攻打方式",
+        "type": "select",
+        "default": "untilCapped",
+        "source_path": "world.treasureLoot.fleets.2.attackMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "untilCapped",
+            "label": "打满为止"
+          },
+          {
+            "value": "unlimited",
+            "label": "无限攻打"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_maxProgress",
+        "label": "舰队 3 · 进度上限（%）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.2.maxProgress",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_followAlly",
+        "label": "舰队 3 · 跟随盟友",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.followAlly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_followWord",
+        "label": "舰队 3 · 跟随盟友名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.followWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_chaseEnabled",
+        "label": "舰队 3 · 启用追击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.chaseEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_chaseBy",
+        "label": "舰队 3 · 追击匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.2.chaseBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_chaseWord",
+        "label": "舰队 3 · 追击名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.chaseWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_safeBy",
+        "label": "舰队 3 · 保护匹配方式",
+        "type": "select",
+        "default": "nickname",
+        "source_path": "world.treasureLoot.fleets.2.safeBy",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "nickname",
+            "label": "按昵称"
+          },
+          {
+            "value": "guild",
+            "label": "按联盟"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_safeWord",
+        "label": "舰队 3 · 保护名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.safeWord",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_repeatAttack",
+        "label": "舰队 3 · 重复攻击",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.repeatAttack",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_fullRepair",
+        "label": "舰队 3 · 出征前完全修复",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.fullRepair",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_filterReward",
+        "label": "舰队 3 · 按奖励筛选",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.filterReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_rewardFilter",
+        "label": "舰队 3 · 奖励筛选名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.rewardFilter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_rewardFilterMode",
+        "label": "舰队 3 · 奖励筛选条件",
+        "type": "select",
+        "default": "all",
+        "source_path": "world.treasureLoot.fleets.2.rewardFilterMode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "all",
+            "label": "全部命中"
+          },
+          {
+            "value": "any",
+            "label": "任意命中"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_rewardFilterCount",
+        "label": "舰队 3 · 奖励命中数量",
+        "type": "number",
+        "default": 2,
+        "min": 0,
+        "source_path": "world.treasureLoot.fleets.2.rewardFilterCount",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_rewardBlock",
+        "label": "舰队 3 · 奖励排除名单",
+        "type": "list",
+        "default": [],
+        "source_path": "world.treasureLoot.fleets.2.rewardBlock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_treasureLoot_fleets_2_moveNearCenter",
+        "label": "舰队 3 · 移动到中心附近",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.treasureLoot.fleets.2.moveNearCenter",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.cityWar",
+    "tab": "世界",
+    "title": "城战",
+    "fields": [
+      {
+        "key": "ref_world_cityWar_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_online",
+        "label": "保持在线",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.online",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_reattack",
+        "label": "重复出征",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.reattack",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_scenario",
+        "label": "执行方案",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "world.cityWar.scenario",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_cityWarRecallLeadMin",
+        "label": "城战提前召回（分钟）",
+        "type": "number",
+        "default": 60,
+        "min": 0,
+        "source_path": "world.cityWar.cityWarRecallLeadMin",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_0_enabled",
+        "label": "舰队 1 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.0.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_0_plan",
+        "label": "舰队 1 · 执行计划",
+        "type": "list",
+        "default": [],
+        "source_path": "world.cityWar.fleets.0.plan",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_0_marchSpeedup",
+        "label": "舰队 1 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.0.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_0_marchSpeedupTargetSecs",
+        "label": "舰队 1 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.cityWar.fleets.0.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_0_recallChipMine",
+        "label": "舰队 1 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.0.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_1_enabled",
+        "label": "舰队 2 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.1.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_1_plan",
+        "label": "舰队 2 · 执行计划",
+        "type": "list",
+        "default": [],
+        "source_path": "world.cityWar.fleets.1.plan",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_1_marchSpeedup",
+        "label": "舰队 2 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.1.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_1_marchSpeedupTargetSecs",
+        "label": "舰队 2 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.cityWar.fleets.1.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_1_recallChipMine",
+        "label": "舰队 2 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.1.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_2_enabled",
+        "label": "舰队 3 · 总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.2.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_2_plan",
+        "label": "舰队 3 · 执行计划",
+        "type": "list",
+        "default": [],
+        "source_path": "world.cityWar.fleets.2.plan",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_2_marchSpeedup",
+        "label": "舰队 3 · 行军加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.2.marchSpeedup",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_2_marchSpeedupTargetSecs",
+        "label": "舰队 3 · 行军目标耗时（秒）",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.cityWar.fleets.2.marchSpeedupTargetSecs",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_cityWar_fleets_2_recallChipMine",
+        "label": "舰队 3 · 召回挖矿舰队",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.cityWar.fleets.2.recallChipMine",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "world.trade",
+    "tab": "世界",
+    "title": "商船贸易",
+    "fields": [
+      {
+        "key": "ref_world_trade_claim",
+        "label": "自动领取",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.trade.claim",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.trade.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_upgrade",
+        "label": "自动升级",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.trade.upgrade",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_firstTripDelayMins",
+        "label": "首航延迟（分钟）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.trade.firstTripDelayMins",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_untilProfit",
+        "label": "贸易加速方案 · 方案 1 · 利润阈值",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.untilProfit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_mode",
+        "label": "贸易加速方案 · 方案 1 · 执行方式",
+        "type": "select",
+        "default": "off",
+        "source_path": "world.trade.speedUpStages.0.mode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "off",
+            "label": "不用指针"
+          },
+          {
+            "value": "everyTrip",
+            "label": "每趟都用"
+          },
+          {
+            "value": "refresh",
+            "label": "只在货架刷新前后用"
+          }
+        ]
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_itemsPerTrip",
+        "label": "贸易加速方案 · 方案 1 · 每航次道具数量",
+        "type": "number",
+        "default": 4,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.itemsPerTrip",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_fullOnly",
+        "label": "贸易加速方案 · 方案 1 · 仅满载时执行",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.trade.speedUpStages.0.fullOnly",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_alignBeforeMins",
+        "label": "贸易加速方案 · 方案 1 · 刷新前对齐（分钟）",
+        "type": "number",
+        "default": 29,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.alignBeforeMins",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_afterRefreshTimes",
+        "label": "贸易加速方案 · 方案 1 · 刷新后执行次数",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.afterRefreshTimes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_afterWithinMins",
+        "label": "贸易加速方案 · 方案 1 · 刷新后执行窗口（分钟）",
+        "type": "number",
+        "default": 5,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.afterWithinMins",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_minDiscountPct",
+        "label": "贸易加速方案 · 方案 1 · 最低折扣（%）",
+        "type": "number",
+        "default": 5,
+        "min": 0,
+        "source_path": "world.trade.speedUpStages.0.minDiscountPct",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpStages_0_buySpeedItem",
+        "label": "贸易加速方案 · 方案 1 · 购买加速道具",
+        "type": "bool",
+        "default": false,
+        "source_path": "world.trade.speedUpStages.0.buySpeedItem",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_world_trade_speedUpDailyLimit",
+        "label": "每日加速上限",
+        "type": "number",
+        "default": 100,
+        "min": 0,
+        "source_path": "world.trade.speedUpDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "guild.packs",
+    "tab": "联盟",
+    "title": "联盟礼包",
+    "fields": [
+      {
+        "key": "ref_guild_packs_guild",
+        "label": "联盟礼包",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.packs.guild",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_packs_title",
+        "label": "称号礼包",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.packs.title",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "guild.order",
+    "tab": "联盟",
+    "title": "联盟订单",
+    "fields": [
+      {
+        "key": "ref_guild_order_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.order.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_order_dailyLimit",
+        "label": "每日次数上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.order.dailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_order_cityIds",
+        "label": "指定城市",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.order.cityIds",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      }
+    ]
+  },
+  {
+    "key": "guild.aid",
+    "tab": "联盟",
+    "title": "联盟互助",
+    "fields": [
+      {
+        "key": "ref_guild_aid_receive",
+        "label": "领取联盟援助",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.aid.receive",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_ask",
+        "label": "自动求助",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.aid.ask",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_askItemsEnabled",
+        "label": "启用指定求助材料",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.aid.askItemsEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_relayLocked",
+        "label": "锁定接力求助",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.aid.relayLocked",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_askTime_start",
+        "label": "求助时间 · 开始时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "guild.aid.askTime.start",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_askTime_end",
+        "label": "求助时间 · 结束时间",
+        "type": "time",
+        "default": "00:00",
+        "source_path": "guild.aid.askTime.end",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_askItems",
+        "label": "求助材料",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.aid.askItems",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "ref_guild_aid_help",
+        "label": "自动帮助盟友",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.aid.help",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_helpItems",
+        "label": "帮助材料",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.aid.helpItems",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "ref_guild_aid_helpNicknameKeywords",
+        "label": "帮助对象昵称关键词",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.aid.helpNicknameKeywords",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_helpMinStock",
+        "label": "帮助后保留库存",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.aid.helpMinStock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_aid_helpDailyLimit",
+        "label": "每日帮助上限",
+        "type": "number",
+        "default": 50,
+        "min": 0,
+        "source_path": "guild.aid.helpDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "guild.tech",
+    "tab": "联盟",
+    "title": "联盟科技",
+    "fields": [
+      {
+        "key": "ref_guild_tech_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.tech.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_tech_items",
+        "label": "指定项目与顺序",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.tech.items",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      }
+    ]
+  },
+  {
+    "key": "guild.ship",
+    "tab": "联盟",
+    "title": "联盟商船",
+    "fields": [
+      {
+        "key": "ref_guild_ship_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.ship.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_captain",
+        "label": "自动担任船长",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.ship.captain",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_captainQualities",
+        "label": "船长品质",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.ship.captainQualities",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          "史诗小船",
+          "传说中船",
+          "超凡大船"
+        ]
+      },
+      {
+        "key": "ref_guild_ship_mode",
+        "label": "执行方式",
+        "type": "select",
+        "default": "small_medium",
+        "source_path": "guild.ship.mode",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "options": [
+          {
+            "value": "small_medium",
+            "label": "红船优先，中船和小船"
+          },
+          {
+            "value": "fixed_red",
+            "label": "固定时间开红船"
+          },
+          {
+            "value": "detect_red",
+            "label": "检测红船出没"
+          }
+        ]
+      },
+      {
+        "key": "ref_guild_ship_minWaterCoinRed",
+        "label": "红色船最低水币",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.ship.minWaterCoinRed",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_minWaterCoinOrange",
+        "label": "橙色船最低水币",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.ship.minWaterCoinOrange",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_minWaterCoinPurple",
+        "label": "紫色船最低水币",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.ship.minWaterCoinPurple",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_rewardItems",
+        "label": "奖励材料名单",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.ship.rewardItems",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "ref_guild_ship_forbiddenMaterials",
+        "label": "禁止消耗材料",
+        "type": "list",
+        "default": [],
+        "source_path": "guild.ship.forbiddenMaterials",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      },
+      {
+        "key": "ref_guild_ship_redDepartureTimes",
+        "label": "红色船出发时间",
+        "type": "times",
+        "default": [
+          "",
+          ""
+        ],
+        "source_path": "guild.ship.redDepartureTimes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_fallbackEnabled",
+        "label": "启用候补方案",
+        "type": "bool",
+        "default": false,
+        "source_path": "guild.ship.fallbackEnabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_guild_ship_fallbackWaitMinutes",
+        "label": "候补等待时间（分钟）",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "guild.ship.fallbackWaitMinutes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "welfare",
+    "tab": "福利",
+    "title": "福利领取",
+    "fields": [
+      {
+        "key": "ref_welfare_daily",
+        "label": "每日福利",
+        "type": "bool",
+        "default": false,
+        "source_path": "welfare.daily",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "每日精选免费赠礼（不含月卡／VIP礼包）"
+      },
+      {
+        "key": "ref_welfare_dailyTask",
+        "label": "每日任务奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "welfare.dailyTask",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "每日任务及日／周活跃奖励"
+      },
+      {
+        "key": "ref_welfare_growth",
+        "label": "成长任务奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "welfare.growth",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "已达标成长及支线奖励"
+      },
+      {
+        "key": "ref_welfare_events",
+        "label": "活动奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "welfare.events",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_welfare_email",
+        "label": "自动领取邮件",
+        "type": "bool",
+        "default": false,
+        "source_path": "welfare.email",
+        "execution": "wechat",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "execution_note": "邮件附件奖励（最多检查5页）"
+      }
+    ]
+  },
+  {
+    "key": "activity.midAutumn",
+    "tab": "活动",
+    "title": "中秋活动",
+    "fields": [
+      {
+        "key": "ref_activity_midAutumn_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.midAutumn.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_midAutumn_signIn",
+        "label": "自动签到",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.midAutumn.signIn",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_midAutumn_freeGift",
+        "label": "免费礼包",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.midAutumn.freeGift",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_midAutumn_activeReward",
+        "label": "活跃奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.midAutumn.activeReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.blindBox",
+    "tab": "活动",
+    "title": "盲盒活动",
+    "fields": [
+      {
+        "key": "ref_activity_blindBox_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blindBox.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blindBox_freeGift",
+        "label": "免费礼包",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blindBox.freeGift",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blindBox_scoreReward",
+        "label": "积分奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blindBox.scoreReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blindBox_play",
+        "label": "自动参与",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blindBox.play",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blindBox_keepCards",
+        "label": "保留卡片数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.blindBox.keepCards",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.catcher",
+    "tab": "活动",
+    "title": "海底捞月",
+    "fields": [
+      {
+        "key": "ref_activity_catcher_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.catcher.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_play",
+        "label": "自动参与",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.catcher.play",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_repeat",
+        "label": "重复挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.catcher.repeat",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_sweep",
+        "label": "自动扫荡",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.catcher.sweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_passReward",
+        "label": "领取通关奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.catcher.passReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_keepHooks",
+        "label": "保留钩子数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.catcher.keepHooks",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_maxStage",
+        "label": "最高关卡",
+        "type": "number",
+        "default": 30,
+        "min": 0,
+        "source_path": "activity.catcher.maxStage",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_catcher_sweepStage",
+        "label": "指定扫荡关卡",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.catcher.sweepStage",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.workshop",
+    "tab": "活动",
+    "title": "活动工坊",
+    "fields": [
+      {
+        "key": "ref_activity_workshop_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.workshop.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_produce",
+        "label": "自动生产",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.workshop.produce",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_gain",
+        "label": "自动领取",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.workshop.gain",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_speedUp",
+        "label": "自动加速",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.workshop.speedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_keepStock",
+        "label": "保留库存",
+        "type": "number",
+        "default": 10,
+        "min": 0,
+        "source_path": "activity.workshop.keepStock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_keepClaws",
+        "label": "保留爪子数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.workshop.keepClaws",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_workshop_speedUpDailyLimit",
+        "label": "每日加速上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.workshop.speedUpDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.weekOrder",
+    "tab": "活动",
+    "title": "每周订单",
+    "fields": [
+      {
+        "key": "ref_activity_weekOrder_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.weekOrder.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_weekOrder_dailyLimit",
+        "label": "每日次数上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.weekOrder.dailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_weekOrder_buyMissingMaterials",
+        "label": "购买缺少材料",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.weekOrder.buyMissingMaterials",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_weekOrder_minRubyStock",
+        "label": "最低钻石库存",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.weekOrder.minRubyStock",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.heroRaid",
+    "tab": "活动",
+    "title": "红卡活动",
+    "fields": [
+      {
+        "key": "ref_activity_heroRaid_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.heroRaid.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_heroRaid_challenge",
+        "label": "自动挑战",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.heroRaid.challenge",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_heroRaid_challengeRetryLimit",
+        "label": "挑战重试上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.heroRaid.challengeRetryLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_heroRaid_submitOrders",
+        "label": "自动提交订单",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.heroRaid.submitOrders",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_heroRaid_orderDailyLimit",
+        "label": "每日订单上限",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.heroRaid.orderDailyLimit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_heroRaid_forbiddenMaterials",
+        "label": "禁止消耗材料",
+        "type": "list",
+        "default": [],
+        "source_path": "activity.heroRaid.forbiddenMaterials",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。",
+        "placeholder": "未选择；登入后可读取可选名单"
+      }
+    ]
+  },
+  {
+    "key": "activity.weekLottery",
+    "tab": "活动",
+    "title": "每周抽奖",
+    "fields": [
+      {
+        "key": "ref_activity_weekLottery_prize",
+        "label": "自动抽奖",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.weekLottery.prize",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "activity.blessing",
+    "tab": "活动",
+    "title": "祝福活动",
+    "fields": [
+      {
+        "key": "ref_activity_blessing_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blessing.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blessing_boost",
+        "label": "自动送祝福",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blessing.boost",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blessing_skinId",
+        "label": "指定外观",
+        "type": "number",
+        "default": 1,
+        "min": 0,
+        "source_path": "activity.blessing.skinId",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blessing_boostTimes",
+        "label": "祝福次数",
+        "type": "number",
+        "default": 50,
+        "min": 0,
+        "source_path": "activity.blessing.boostTimes",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blessing_claimReward",
+        "label": "领取奖励",
+        "type": "bool",
+        "default": false,
+        "source_path": "activity.blessing.claimReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_activity_blessing_keepKnots",
+        "label": "保留绳结数量",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "source_path": "activity.blessing.keepKnots",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "shop",
+    "tab": "商店",
+    "title": "商店",
+    "fields": [
+      {
+        "key": "ref_shop_enabled",
+        "label": "总开关",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.enabled",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_shop_advertisement",
+        "label": "广告商店自动兑换",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.advertisement",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_shop_arena",
+        "label": "竞技商店",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.arena",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_shop_guild",
+        "label": "联盟礼包",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.guild",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_shop_vip",
+        "label": "VIP商店",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.vip",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_shop_discount",
+        "label": "折扣商店",
+        "type": "bool",
+        "default": false,
+        "source_path": "shop.discount",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "key": "advertising",
+    "tab": "广告",
+    "title": "广告任务",
+    "fields": [
+      {
+        "key": "ref_advertising_heroRecruit",
+        "label": "英雄招募广告",
+        "type": "bool",
+        "default": false,
+        "source_path": "advertising.heroRecruit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_advertising_antiqueRecruit",
+        "label": "藏品招募广告",
+        "type": "bool",
+        "default": false,
+        "source_path": "advertising.antiqueRecruit",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_advertising_afkReward",
+        "label": "挂机收益广告",
+        "type": "bool",
+        "default": false,
+        "source_path": "advertising.afkReward",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_advertising_trialSweep",
+        "label": "试炼扫荡广告",
+        "type": "bool",
+        "default": false,
+        "source_path": "advertising.trialSweep",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      },
+      {
+        "key": "ref_advertising_factorySpeedUp",
+        "label": "工厂加速广告",
+        "type": "bool",
+        "default": false,
+        "source_path": "advertising.factorySpeedUp",
+        "execution": "pending",
+        "help": "设置会保存到当前账号；执行逻辑待接通。"
+      }
+    ]
+  },
+  {
+    "tab": "福利",
+    "title": "已接通任務（免費）",
+    "fields": [
+      {
+        "key": "script_achievement",
+        "label": "自動領取已達標成就",
+        "type": "bool",
+        "default": false,
+        "execution": "wechat",
+        "execution_note": "已达标成就奖励"
+      },
+      {
+        "key": "script_afk",
+        "label": "自動領取到期掛機收益（不加倍）",
+        "type": "bool",
+        "default": false,
+        "execution": "wechat",
+        "execution_note": "到期挂机收益"
+      },
+      {
+        "key": "script_gift_codes",
+        "label": "禮包碼（每組只嘗試一次）",
+        "type": "list",
+        "default": [],
+        "execution": "wechat",
+        "execution_note": "礼包码兑换"
+      },
+      {
+        "key": "script_interval",
+        "label": "檢查間隔（秒，最少60）",
+        "type": "number",
+        "min": 60,
+        "default": 60,
+        "execution": "pending"
+      }
+    ]
+  }
+]

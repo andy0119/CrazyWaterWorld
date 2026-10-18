@@ -1,0 +1,30 @@
+# Local dependency environments
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+
+# Private local state
+*.sqlite3
+*.sqlite3-*
+*.db
+.env
+.env.*
+!.env.example
+*-verified-roles.json
+sdk-config.json
+*.pcap
+*.pcapng
+*.etl
+*.keylog
+*.pem
+*.key
+*.pfx
+*.log
+
+# Local backups and generated artifacts
+backup-before-*/
+.pytest_cache/
+.DS_Store
+Thumbs.db

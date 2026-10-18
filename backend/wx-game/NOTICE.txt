@@ -1,0 +1,1 @@
+Protocol modules adapted from xutongxue233/crazywaterword 4094a69 (ISC). Game SDK and protocol bundle read from the locally installed Crazy Water World client. No user credentials stored in this folder.

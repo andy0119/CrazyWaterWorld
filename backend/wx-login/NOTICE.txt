@@ -1,0 +1,4 @@
+Login service adapted from Aemeath5/qq-farm-bot, commit e30c758 (20261015).
+Source: https://github.com/Aemeath5/qq-farm-bot
+core/package.json declares ISC. Upstream compiled service.js and native-protocol.js retained unmodified.
+Local bridge targets Crazy Water World's WeChat AppID; authorization/game-session compatibility remains unverified.
