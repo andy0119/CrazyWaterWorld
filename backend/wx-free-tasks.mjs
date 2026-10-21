@@ -3,6 +3,7 @@ import {normalize} from './wx-game/worlds.mjs';
 import {surveyTasks} from './wx-game/tasks.mjs';
 const tables=JSON.parse(fs.readFileSync(new URL('./wx-game/task-tables.json',import.meta.url),'utf8'));
 export const FREE_TASKS={
+ 'ref_activity_workshop_gain':'活动工坊成品（需工坊总开关）',
  'ref_welfare_dailyTask':'每日任务及日／周活跃奖励',
  'ref_welfare_daily':'每日精选免费赠礼',
  'ref_welfare_email':'邮件附件奖励',
@@ -13,7 +14,7 @@ export const FREE_TASKS={
  'farm_1':'成熟农作物（需农田总开关）',
  'residents_7':'居民订单进度奖励',
 };
-export function enabledFreeTasks(s){return Object.keys(FREE_TASKS).filter(k=>s[k]===true&&(!k.startsWith('building_')||s.building_0===true)&&(k!=='ref_island_factory_gain'||s.factory_0===true)&&(k!=='farm_1'||s.farm_0===true));}
+export function enabledFreeTasks(s){return Object.keys(FREE_TASKS).filter(k=>s[k]===true&&(k!=='ref_activity_workshop_gain'||s.ref_activity_workshop_enabled===true)&&(!k.startsWith('building_')||s.building_0===true)&&(k!=='ref_island_factory_gain'||s.factory_0===true)&&(k!=='farm_1'||s.farm_0===true));}
 const positiveAssets=a=>(a??[]).filter(x=>x&&x.id&&Number(x.num)>0);
 async function stock(client){
  const i=normalize(await client.request('AllItemRequest',{},'AllItemResponse',8000));
@@ -24,7 +25,7 @@ async function stock(client){
  return out;
 }
 function increased(before,after,assets){const sums={};for(const x of positiveAssets(assets))sums[x.id]=(sums[x.id]??0)+Number(x.num);return Object.keys(sums).length>0&&Object.entries(sums).every(([id,n])=>(after[id]??0)-(before[id]??0)>=n);}
-export async function runFreeTasks({client,protocol,settings:s,act,log}){
+export async function runFreeTasks({client,protocol,settings:s,act,log,config=tables.tables}){
  const on=new Set(enabledFreeTasks(s));if(!on.size)return;
  const read=(req,res,body={})=>client.request(req,body,res,8000).then(normalize);
  const now=()=>Math.floor((Date.now()+(client.serverClockOffsetMs??0))/1000);
@@ -80,7 +81,7 @@ export async function runFreeTasks({client,protocol,settings:s,act,log}){
    return p.kind==='main'?!!after.task&&(after.task.taskId!==p.id||after.task.rewardClaimed===true):!(after.branch??[]).some(x=>x.taskId===p.id);
   });log('成长与订单奖励检查完成');
  }
- if(['building_1','building_6','ref_island_factory_gain','farm_1'].some(k=>on.has(k))){
+ if(['building_1','building_6','ref_island_factory_gain','ref_activity_workshop_gain','farm_1'].some(k=>on.has(k))){
   let state=await water();
   for(const b of (state.building??[]).slice(0,150)){
    if(on.has('building_1')&&!b.factory&&positiveAssets(b.product?.asset).length){
@@ -90,10 +91,12 @@ export async function runFreeTasks({client,protocol,settings:s,act,log}){
      return increased(before,await stock(client),(reply.reward??[]).flatMap(x=>x.product?.asset??[]));
     });
    }
-   if(on.has('ref_island_factory_gain')&&(b.factory?.finishedProducts??[]).length){
-    await claim(`factory-product:${b.buildingId}:${Math.floor(now()/60)}`,'工厂成品 '+b.buildingId,async()=>{
+   const workshop=(config.BuildingUnlockCfg?.data??[]).some(u=>u.buildingId===b.buildingId&&u.buildingType==='活动工厂');
+   if((workshop?on.has('ref_activity_workshop_gain'):on.has('ref_island_factory_gain'))&&(b.factory?.finishedProducts??[]).length){
+    await claim(`factory-product:${b.buildingId}:${Math.floor(now()/60)}`,(workshop?'活动工坊成品 ':'工厂成品 ')+b.buildingId,async()=>{
      const before=await stock(client);const reply=await read('GainFactoryProduceRequest','GainFactoryProduceResponse',{buildingId:b.buildingId});
-     return increased(before,await stock(client),reply.products?.asset);
+     const inventory=await stock(client),after=(await water()).building?.find(x=>x.buildingId===b.buildingId);
+     return !!after&&(after.factory?.finishedProducts??[]).length<b.factory.finishedProducts.length&&increased(before,inventory,reply.products?.asset);
     });
    }
    if(on.has('farm_1')&&b.farm?.productId&&b.farm.ripeTime>0&&b.farm.ripeTime<=now()){

@@ -1,8 +1,10 @@
+import {runTrialSweeps} from './wx-trial-sweeps.mjs';
 import fs from 'node:fs';
 import {normalize} from './wx-game/worlds.mjs';
 const tables=JSON.parse(fs.readFileSync(new URL('./wx-game/task-tables.json',import.meta.url),'utf8'));
 export async function runTrials({client,settings:s,state,act,log,config=tables}){
  if(!s.ref_battle_trial_enabled)return;
+ await runTrialSweeps({client,settings:s,state,act,log});
  state.trials??={};const retries=Math.max(0,Math.trunc(Number(s.ref_battle_trial_samePowerRetryCount)||0));
  for(const [field,raidId,label] of [['heroExp',1,'英雄经验试炼'],['forge',2,'强化石试炼'],['petExp',3,'海兽经验试炼']]){
   if(!s[`ref_battle_trial_${field}_challenge`])continue;

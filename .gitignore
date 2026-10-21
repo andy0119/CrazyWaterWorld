@@ -13,7 +13,6 @@ __pycache__/
 .env.*
 !.env.example
 *-verified-roles.json
-sdk-config.json
 *.pcap
 *.pcapng
 *.etl
@@ -28,3 +27,6 @@ backup-before-*/
 .pytest_cache/
 .DS_Store
 Thumbs.db
+
+# Local SDK credentials
+sdk-config.json

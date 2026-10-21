@@ -1,3 +1,4 @@
+from loot_settings import validate_loot_settings
 import os,sqlite3,secrets,hashlib,hmac,time,json,math
 from contextlib import contextmanager
 from pathlib import Path
@@ -88,6 +89,8 @@ def delete_subuser(sub_id:int,authorization:str|None=Header(None)):
   c.execute('DELETE FROM game_sessions WHERE sub_id=? AND owner_id=?',(sub_id,u['id']))
   c.execute('DELETE FROM emulator_bindings WHERE sub_id=? AND owner_id=?',(sub_id,u['id']))
   c.execute('DELETE FROM emulator_logs WHERE sub_id=? AND owner_id=?',(sub_id,u['id']))
+  c.execute('DELETE FROM task_role_options WHERE sub_id=? AND owner_id=?',(sub_id,u['id']))
+  c.execute('DELETE FROM task_world_maps WHERE sub_id=? AND owner_id=?',(sub_id,u['id']))
   c.execute('DELETE FROM task_settings WHERE sub_id=?',(sub_id,))
   c.execute('DELETE FROM subusers WHERE id=? AND parent_id=?',(sub_id,u['id']))
  return {'success':True,'message':'已移除本機帳號資料與任務設定'}
@@ -162,20 +165,22 @@ def save_settings(sub_id:int,x:TaskSettings,authorization:str|None=Header(None))
  for key,value in x.values.items():
   f=FIELDS[key];typ=f['type'];valid=True
   if typ=='bool':valid=type(value) is bool
-  elif typ=='number':valid=type(value) in (int,float) and math.isfinite(value) and f.get('min',0)<=value<=1000000000 and (key=='basic_0' or int(value)==value)
+  elif typ=='number':valid=type(value) in (int,float) and math.isfinite(value) and f.get('min',0)<=value<=f.get('max',1000000000) and (key=='basic_0' or int(value)==value)
   elif typ=='select':valid=value in [o['value'] if isinstance(o,dict) else o for o in f['options']]
   elif typ=='time':valid=isinstance(value,str) and (value=='' or bool(__import__('re').fullmatch(r'(?:[01]\d|2[0-3]):[0-5]\d',value)))
   elif typ=='times':valid=isinstance(value,list) and len(value)<=100 and all(isinstance(v,str) and (v=='' or bool(__import__('re').fullmatch(r'(?:[01]\d|2[0-3]):[0-5]\d',v))) for v in value)
   elif typ=='numbers':valid=isinstance(value,list) and len(value)<=100 and all(type(v) in (int,float) and math.isfinite(v) and 0<=v<=1000000000 for v in value)
   elif typ=='map':valid=isinstance(value,dict) and len(value)<=100 and all(isinstance(k,str) and 0<len(k)<=100 and type(v) in (int,float) and math.isfinite(v) and 0<=v<=1000000000 for k,v in value.items())
   elif typ=='text':valid=isinstance(value,str) and len(value)<=200
-  elif typ=='list':valid=isinstance(value,list) and len(value)<=100 and all(isinstance(v,str) and 0<len(v)<=100 for v in value)
+  elif typ=='list':valid=isinstance(value,list) and len(value)<=f.get('maxItems',100) and all(isinstance(v,str) and 0<len(v)<=100 for v in value)
   elif typ=='crops':
    valid=isinstance(value,list) and len(value)==len(f['default'])
    if valid:
     valid=all(isinstance(v,dict) and set(v)=={'name','limit'} and isinstance(v['name'],str) and type(v['limit']) is int and 0<=v['limit']<=1000000000 for v in value)
    if valid:valid=sorted(v['name'] for v in value)==sorted(v['name'] for v in f['default'])
   if not valid:raise HTTPException(422,'設定值無效：'+f['label'])
+ try:validate_loot_settings(x.values)
+ except ValueError as exc:raise HTTPException(422,str(exc))
  values={k:f['default'] for k,f in FIELDS.items()};values.update(x.values)
  updated=int(time.time())
  with conn() as c:c.execute('INSERT INTO task_settings VALUES(?,?,?) ON CONFLICT(sub_id) DO UPDATE SET settings=excluded.settings,updated=excluded.updated',(sub_id,json.dumps(values,ensure_ascii=False),updated))
@@ -187,6 +192,8 @@ from task_engine import TaskEngine,mount_engine_routes
 script_engine=TaskEngine(auth,conn,session_store)
 app.state.script_engine=script_engine
 mount_engine_routes(app,script_engine)
+from arena_view import mount as mount_arena_view
+mount_arena_view(app,script_engine)
 mount_session_routes(app,auth,conn)
 from wx_bridge import mount_wx_routes
 mount_wx_routes(app,auth,conn,session_store)
@@ -197,5 +204,8 @@ mount_channel_routes(app,auth,conn)
 
 from emulator_tasks import mount_emulator_tasks
 mount_emulator_tasks(app,auth,conn)
+
+from world_map_view import mount as mount_world_map
+mount_world_map(app,conn,auth,session_store,script_engine)
 
 app.mount('/',StaticFiles(directory=ROOT/'web',html=True),name='web')

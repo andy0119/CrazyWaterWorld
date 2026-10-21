@@ -2,7 +2,7 @@
 
 此版本供原始碼備份及開發，尚未完成公開多人部署，不是已上線的雲端掛機服務。
 
-- 需 Python、Node.js；Python 套件見 backend/requirements.txt，Node 套件在 backend 執行 npm install。
+- 需 Python、Node.js；Python 套件見 backend/requirements.txt，Node 套件安裝步驟見 README.md。
 - 目前遊戲會話加密依賴 Windows DPAPI。Linux 部署需先修改憑證保護方式。
 - 部分 Node 與模擬器路徑仍依賴開發環境；部分抖音工具不包含在此原始碼版本。
 - 資料庫、角色登入資料、SDK 本機設定及已安裝套件均不包含。SDK 設定必須由部署者取得適用的授權設定後自行提供。

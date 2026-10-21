@@ -8,3 +8,45 @@ header{flex-wrap:nowrap;min-height:48px;gap:16px}header>a{white-space:nowrap;fle
 .task-pending{display:inline-block;margin-left:8px;font-size:10px;color:#9a6500;background:#fff3d7;border-radius:3px;padding:1px 5px}
 
 .gift-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.gift-tools button{padding:5px 12px;background:#1677ff;color:#fff;border:0;border-radius:5px}.gift-tools small{color:#697b91;font-size:11px}
+
+/* Multi-choice lists use checkboxes, distinct from feature switches. */
+.tag-editor{align-items:flex-start;overflow:visible;min-width:0}
+.tag-editor .multi-menu{flex:0 0 100%;width:100%;min-width:0;border-top:1px solid #edf0f4;padding:4px}
+.multi-menu summary{cursor:pointer;padding:5px 7px;color:#315780;user-select:none}
+.multi-menu>input[type=search]{width:100%;height:34px;margin:4px 0}
+.multi-choices label{min-height:32px;padding:3px 5px;border-radius:4px;overflow-wrap:anywhere}
+.multi-choices label:hover{background:#edf5ff}
+.multi-choices label[hidden]{display:none!important}
+.multi-choices input.multi-choice-check{appearance:auto!important;position:static;width:17px!important;height:17px!important;min-width:17px;flex:0 0 17px;padding:0;margin:0;border-radius:3px;background:initial;accent-color:#1677ff}
+.multi-choices input.multi-choice-check:before{content:none!important}
+.tag{max-width:100%;overflow-wrap:anywhere}.tag button{flex-shrink:0;min-width:22px;min-height:24px}
+@media(max-width:700px){.field:has(.tag-editor){grid-template-columns:1fr;gap:6px}.tag-editor{width:100%}}
+
+/* Reference setting layout: label/control split, compact Ant-style controls. */
+body{background:linear-gradient(160deg,#e8f3ff 0%,#c4daff 50%,#7aaaee 100%);font:14px/1.5715 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:rgba(0,0,0,.88)}
+.settings-panel{background:rgba(255,255,255,.65);padding:0 20px 28px;box-shadow:0 4px 24px #2864c81a,0 1px 4px #0000000f;backdrop-filter:blur(12px)}
+.field{min-height:56px;padding:10px 0;grid-template-columns:40% minmax(0,1fr);align-items:start}.field>label{padding-top:6px}.field:has(>div>input[type=checkbox]){align-items:center}.field:has(>div>input[type=checkbox])>label{padding-top:0}
+.task-connected{display:none}.task-pending{background:none;padding:0;margin-left:5px;font-size:11px;color:#9a6500}.field-info{font-size:12px;color:#98a2b3;margin-left:5px;cursor:help}
+section h2{font-size:18px;font-weight:600;margin:0 0 10px;padding:18px 0 9px;border-bottom:1px solid #dfe5ec}
+.tag-editor{width:420px;max-width:100%;position:relative;min-height:32px;padding:3px 7px;gap:4px;align-items:center;overflow:visible}.tag{font-size:14px;line-height:22px;padding:0 4px;border-radius:2px}.tag button{min-height:18px;min-width:14px;padding:0;font-size:14px}
+.tag-editor .multi-menu{flex:1 1 90px;min-width:90px;width:auto;border:0;padding:0}.multi-menu summary{font-size:12px;line-height:24px;padding:0 2px;color:#8b96a5;white-space:normal;list-style:none}.multi-menu summary:after{content:'⌄';float:right;margin-left:6px}.multi-menu summary::-webkit-details-marker{display:none}
+.multi-popover{position:absolute;top:calc(100% + 5px);left:0;width:100%;min-width:220px;max-width:min(420px,calc(100vw - 42px));z-index:30;padding:8px;background:#fff;border-radius:6px;box-shadow:0 6px 20px #0002;border:1px solid #e5e7eb}
+.multi-popover>input{display:block;width:100%;height:30px;margin:0 0 6px;padding:4px 8px;min-width:0}.multi-choices{padding:0!important;gap:2px!important}.multi-choices label{min-height:30px;padding:4px 8px}.multi-choices input.multi-choice-check{appearance:auto!important;width:16px!important;height:16px!important;flex-basis:16px;accent-color:#1677ff}
+.radio-group{display:flex;gap:16px;align-items:center;min-height:32px;flex-wrap:wrap}.radio-group label{display:inline-flex;align-items:center;gap:7px;cursor:pointer}.radio-group input[type=radio]{appearance:auto;width:16px;height:16px;margin:0;padding:0;accent-color:#1677ff}
+.farm-child{border-left:2px solid #526378;margin-left:4px;padding-left:12px}.crop-field{display:block}.crop-field>label{display:block;padding-top:0;margin-bottom:6px}.crop{margin:7px 0;gap:8px}.crop>span{width:112px;flex-shrink:0}.crop input{width:128px;height:35px}.crop button{padding:1px 8px;height:24px;border-radius:3px;border-color:#d9d9d9;color:#333;background:#fff;font-size:14px}
+.help{font-size:11px;line-height:1.5;color:#8b96a5;margin:5px 0 0}.field>div>.help{max-width:420px}
+footer #save{position:fixed;right:24px;bottom:20px;width:44px;height:44px;padding:0;border-radius:50%;font-size:0;background:linear-gradient(135deg,#f472b6,#c026d3);box-shadow:0 4px 20px #c026d355}footer #save:after{content:'▣';font-size:23px;color:#fff}footer #refreshOptions{position:fixed;right:24px;bottom:76px;width:44px;height:44px;padding:0;border:0;border-radius:50%;font-size:0;background:linear-gradient(135deg,#67e8f9,#0369a1);color:white;box-shadow:0 4px 20px #0369a14d}footer #refreshOptions:after{content:'↻';font-size:25px}footer #message{max-width:calc(100% - 86px)}
+@media(max-width:700px){.field{grid-template-columns:40% minmax(0,1fr);gap:0;font-size:13px}.field:has(.tag-editor){grid-template-columns:40% minmax(0,1fr)}.field>label{padding-right:8px}.tag-editor{width:100%}.multi-popover{left:auto;right:0;min-width:200px;max-width:calc(100vw - 38px)}.crop-field{display:block}.crop>span{width:92px}.crop input{width:98px}.crop button{padding:1px 5px;font-size:12px}.settings-panel{padding:0 16px 24px}}
+
+.field>div>.help{display:none}
+
+/* Save stays in the top toolbar and submits the settings form by its form ID. */
+body>header{position:sticky;top:0;z-index:50;background:rgba(245,249,255,.96);backdrop-filter:blur(12px);min-height:56px}header #save{position:static;flex-shrink:0;margin-left:auto;width:auto;height:34px;padding:5px 16px;border:1px solid #1677ff;border-radius:6px;font-size:14px;line-height:22px;background:#1677ff;color:white;box-shadow:none;white-space:nowrap}header #save:disabled{opacity:.45}header #save:after{content:none}nav{top:56px;z-index:20}section{scroll-margin-top:110px}@media(max-width:600px){header>.badge,header>strong{display:none}body>header{gap:10px;padding:10px 16px}header #save{padding:5px 12px}}
+
+body>header #message{margin-left:auto;min-width:0;max-width:38vw;font-size:12px;line-height:1.4;color:#6d7e95;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body>header #message.error{color:#b83241}body>header #save{margin-left:0}#settings>footer:empty{display:none}@media(max-width:600px){body>header{flex-wrap:wrap}body>header #message{max-width:none;flex:1 1 120px;white-space:normal}body>header #save{margin-left:auto}nav{top:70px}}
+
+.task-detail-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:12px}.script-panel .task-detail-panel{margin-top:0;min-width:0;border:1px solid #d5e1ed;border-radius:8px;background:#ffffffb3;overflow:hidden}.task-detail-panel>summary{padding:11px 14px;cursor:pointer;font-size:14px;font-weight:600;color:#304b6b;user-select:none}.task-detail-panel[open]>summary{border-bottom:1px solid #dfe7f0}.task-detail-panel>p,.task-detail-panel>pre{margin:0;padding:12px 14px;font-size:12px;line-height:1.8;overflow-wrap:anywhere}.task-detail-panel>p{max-height:320px;overflow:auto}.task-detail-panel>summary:hover{background:#edf5ff}@media(max-width:800px){.task-detail-panels{grid-template-columns:1fr}}
+
+header #copySettings{flex-shrink:0;white-space:nowrap;height:34px;padding:5px 12px;font-size:14px}#copySettingsDialog{width:560px;max-width:calc(100vw - 32px);padding:24px;border:1px solid #d8e5f5;border-radius:12px;color:#23334c;box-shadow:0 14px 60px #18314e33}#copySettingsDialog::backdrop{background:#14284166}#copySettingsDialog h2{margin:0 0 18px;font-size:18px}#copySettingsDialog label{display:block;margin-bottom:8px}#copySourceAccount{width:100%;height:auto;min-height:36px}#copySettingsDialog p{font-size:13px;color:#64748b}.copy-dialog-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}#applyCopySettings{background:#1677ff;border-color:#1677ff;color:white}
+
+.arena-opponent-list{margin:20px 0;padding:16px;border:1px solid #dbe4ef;border-radius:8px;background:#fff9}.arena-opponent-list h3{margin:0 0 8px;font-size:15px}.arena-opponent-list p,.arena-opponent-list small{font-size:12px;color:#62738b}.arena-table-scroll{overflow:auto;margin-top:12px}.arena-opponent-list table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}.arena-opponent-list th,.arena-opponent-list td{padding:9px 12px;border-bottom:1px solid #e3e9f1;white-space:nowrap}.arena-opponent-list th{background:#eef4fc}
