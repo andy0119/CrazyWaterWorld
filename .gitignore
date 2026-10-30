@@ -1,0 +1,51 @@
+# Local dependency environments
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+
+# Private local state
+*.sqlite3
+*.sqlite3-*
+*.db
+.env
+.env.*
+!.env.example
+*-verified-roles.json
+*.pcap
+*.pcapng
+*.etl
+*.keylog
+*.pem
+*.key
+*.pfx
+*.log
+
+# Local backups and generated artifacts
+backup-before-*/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# Owner-bound local session sources (never publish)
+channel-sessions.local.json
+sdk-config.json
+
+# Release exclusions
+*.local.json
+*.sqlite
+*.sqlite-*
+local.properties
+.gradle/
+.idea/
+build/
+outputs/
+work/
+*.zip
+*.apk
+*.exe
+*.dll
+*.p12
+*.jks
+*.keystore

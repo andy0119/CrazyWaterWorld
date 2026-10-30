@@ -1,0 +1,74 @@
+{
+  "vip": [
+    {
+      "level": 1,
+      "bonus": 2
+    },
+    {
+      "level": 2,
+      "bonus": 2
+    },
+    {
+      "level": 3,
+      "bonus": 5
+    },
+    {
+      "level": 4,
+      "bonus": 5
+    },
+    {
+      "level": 5,
+      "bonus": 10
+    },
+    {
+      "level": 6,
+      "bonus": 10
+    },
+    {
+      "level": 7,
+      "bonus": 15
+    },
+    {
+      "level": 8,
+      "bonus": 15
+    },
+    {
+      "level": 9,
+      "bonus": 15
+    },
+    {
+      "level": 10,
+      "bonus": 15
+    },
+    {
+      "level": 11,
+      "bonus": 15
+    },
+    {
+      "level": 12,
+      "bonus": 20
+    },
+    {
+      "level": 13,
+      "bonus": 20
+    },
+    {
+      "level": 14,
+      "bonus": 20
+    },
+    {
+      "level": 15,
+      "bonus": 25
+    }
+  ],
+  "month": [
+    {
+      "id": "普通月卡",
+      "bonus": 0
+    },
+    {
+      "id": "高级月卡",
+      "bonus": 0
+    }
+  ]
+}

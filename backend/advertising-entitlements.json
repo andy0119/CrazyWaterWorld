@@ -1,0 +1,51 @@
+{
+  "noAdVipLevels": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "limits": [
+    {
+      "id": 1,
+      "dailyLimit": 1
+    },
+    {
+      "id": 2,
+      "dailyLimit": 3
+    },
+    {
+      "id": 3,
+      "dailyLimit": 1
+    },
+    {
+      "id": 4,
+      "dailyLimit": 1
+    },
+    {
+      "id": 5,
+      "dailyLimit": 1
+    },
+    {
+      "id": 6,
+      "dailyLimit": 3
+    },
+    {
+      "id": 7,
+      "dailyLimit": 3
+    },
+    {
+      "id": 8,
+      "dailyLimit": 3
+    }
+  ]
+}

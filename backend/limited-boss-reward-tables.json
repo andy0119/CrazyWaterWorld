@@ -1,0 +1,67 @@
+{
+  "LimitedBossChallengeRewardCfg": {
+    "data": [
+      {
+        "season": 1,
+        "challengeTimes": 1,
+        "reward": [
+          [
+            "活动26中秋_盲盒卡",
+            1
+          ],
+          [
+            "活动26中秋_月饼",
+            20
+          ],
+          [
+            "RUBY",
+            100
+          ]
+        ]
+      },
+      {
+        "season": 1,
+        "challengeTimes": 3,
+        "reward": [
+          [
+            "活动26中秋_盲盒卡",
+            1
+          ],
+          [
+            "活动26中秋_月饼",
+            20
+          ],
+          [
+            "RUBY",
+            100
+          ]
+        ]
+      },
+      {
+        "season": 1,
+        "challengeTimes": 5,
+        "reward": [
+          [
+            "活动26中秋_盲盒卡",
+            1
+          ],
+          [
+            "活动26中秋_月饼",
+            20
+          ],
+          [
+            "RUBY",
+            100
+          ]
+        ]
+      }
+    ],
+    "index": {
+      "season_challengeTimes": {
+        "1_1": 0,
+        "1_3": 1,
+        "1_5": 2
+      }
+    }
+  }
+}
