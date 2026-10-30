@@ -17,6 +17,7 @@ function addGiftExcelTools(tools,field){
   values[field.key]=merged.codes;change();draw();message('Excel 新增 '+merged.added+' 组，略过重复 '+(merged.duplicates+(data.duplicates||0))+' 组'+(data.examples_skipped?'、范例占位码 '+data.examples_skipped+' 组':'')+'；目前共 '+merged.codes.length+' 组，请保存设置；不会自动兑换');
  }catch(e){message(e.message,true)}finally{choose.value='';importButton.disabled=false}};
  exportButton.onclick=async()=>{exportButton.disabled=true;try{
+  const draft=document.querySelector?.('[data-key="script_gift_codes"] .tag-editor input[type="text"]');if(draft?.value?.trim())draft.onblur?.();
   const r=await readResponse(await fetch('/api/gift-codes/export-excel',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({account,codes:values[field.key]||[]})}));
   const url=URL.createObjectURL(await r.blob()),link=el('a');link.href=url;link.download='gift-codes-account-'+account+'.xlsx';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);message('已导出「礼包码」与「過期」两张工作表；主表包含尚未保存的修改，过期表来自本账号确认纪录，不含登入资料');
  }catch(e){message(e.message,true)}finally{exportButton.disabled=false}};

@@ -5780,13 +5780,26 @@
       },
       {
         "key": "ref_world_chipMine_fleets_0_levels",
-        "label": "舰队 1 · 目标等级",
-        "type": "number",
+        "label": "舰队 1 · 目标品质",
+        "type": "select",
         "default": 5,
-        "min": 0,
         "source_path": "world.chipMine.fleets.0.levels",
         "execution": "wechat",
-        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。"
+        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。",
+        "options": [
+          {
+            "value": 5,
+            "label": "橙色矿"
+          },
+          {
+            "value": 4,
+            "label": "紫色矿"
+          },
+          {
+            "value": 3,
+            "label": "蓝色矿"
+          }
+        ]
       },
       {
         "key": "ref_world_chipMine_fleets_0_marchSpeedup",
@@ -5945,13 +5958,26 @@
       },
       {
         "key": "ref_world_chipMine_fleets_1_levels",
-        "label": "舰队 2 · 目标等级",
-        "type": "number",
+        "label": "舰队 2 · 目标品质",
+        "type": "select",
         "default": 4,
-        "min": 0,
         "source_path": "world.chipMine.fleets.1.levels",
         "execution": "wechat",
-        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。"
+        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。",
+        "options": [
+          {
+            "value": 5,
+            "label": "橙色矿"
+          },
+          {
+            "value": 4,
+            "label": "紫色矿"
+          },
+          {
+            "value": 3,
+            "label": "蓝色矿"
+          }
+        ]
       },
       {
         "key": "ref_world_chipMine_fleets_1_marchSpeedup",
@@ -6110,13 +6136,26 @@
       },
       {
         "key": "ref_world_chipMine_fleets_2_levels",
-        "label": "舰队 3 · 目标等级",
-        "type": "number",
+        "label": "舰队 3 · 目标品质",
+        "type": "select",
         "default": 3,
-        "min": 0,
         "source_path": "world.chipMine.fleets.2.levels",
         "execution": "wechat",
-        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。"
+        "help": "已接空位派遣，待实机验证：依启用舰队、等级、时段与每日奖励次数筛选；本版仅采空位，不争夺、追击或耗钻加速。",
+        "options": [
+          {
+            "value": 5,
+            "label": "橙色矿"
+          },
+          {
+            "value": 4,
+            "label": "紫色矿"
+          },
+          {
+            "value": 3,
+            "label": "蓝色矿"
+          }
+        ]
       },
       {
         "key": "ref_world_chipMine_fleets_2_marchSpeedup",

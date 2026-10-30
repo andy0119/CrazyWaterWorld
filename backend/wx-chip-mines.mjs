@@ -16,7 +16,7 @@ export async function runChipMines({client,protocol,settings:s,act,log,paused=ne
    let candidate;for(const mine of mines.filter(x=>x.color===level&&Number.isSafeInteger(x.gridId)&&x.gridId>0&&(x.occupiedNum??0)<x.positionNum).slice(0,12)){
     const detail=await read('ChipMineRequest','ChipMineResponse',{gridId:mine.gridId});const seat=emptyChipPosition(detail);if(seat!==null&&(detail.rewardInfo?.myRewardTimes??0)<detail.rewardInfo?.maxRewardTimes){candidate={mine,seat};break;}
    }
-   if(!candidate){log(`芯片矿舰队 ${i+1}：未找到等级 ${level} 的可确认空位，本轮不争夺已占位置`);continue;}
+   if(!candidate){log(`芯片矿舰队 ${i+1}：未找到${({3:'蓝色矿',4:'紫色矿',5:'橙色矿'})[level]}的可确认空位，本轮不争夺已占位置`);continue;}
    const {mine,seat}=candidate;const result=await act(`chip-mine:${remaining.rewardResetTime}:${mine.gridId}:${seat}:${fleet.buildingId}:${remaining.myRewardTimes??0}`,async()=>{
     const before=(await read('MyFleetsRequest','MyFleetsResponse')).fleets?.find(x=>x.buildingId===fleet.buildingId),detail=await read('ChipMineRequest','ChipMineResponse',{gridId:mine.gridId});
     if(before?.state!==protocol.FleetState.IDLE||!(before.durability>0)||!(before.power>0)||emptyChipPosition(detail)!==seat||!((detail.rewardInfo?.myRewardTimes??0)<detail.rewardInfo?.maxRewardTimes))return{status:'rejected',message:'芯片矿空位、次数或舰队状态已变，取消派遣'};

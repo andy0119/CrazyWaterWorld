@@ -9,6 +9,7 @@
    document.getElementById('scriptPanel').hidden=false;
    document.getElementById('wxTaskSupport').textContent=(result.platform==='wechat'?'已接通：':'共用协议试验渠道：各任务仍需实测；可选功能：')+Object.values(result.capabilities||{}).join('、')+'。未标记的功能仍待接通。';
    const run=result.run;
+   if(typeof updateRoleIdentityRun==='function')updateRoleIdentityRun(run);
    state.textContent=run?(labels[run.status]||run.status):'尚未啟動；保存所選任務後開始，執行前會重新驗證遊戲會話';
    logs.textContent=result.logs.map(x=>'['+new Date(x.created*1000).toLocaleTimeString()+'] '+formatTaskLog(x.message)).join('\n');
    logs.scrollTop=logs.scrollHeight;

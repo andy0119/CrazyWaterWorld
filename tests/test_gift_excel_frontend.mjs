@@ -22,3 +22,10 @@ await exportButton.onclick();assert.equal(nodes[0].download,'gift-codes-account-
 console.log('PASS import/export buttons download template, merge draft, reject oversized file and export unsaved list without saving/redeeming');
 
 context.values.script_gift_codes=[];context.fetch=async(path,options)=>{const body=JSON.parse(options.body);assert.equal(body.account,77);assert.deepEqual(body.codes,[]);return {ok:true,blob:async()=>({})}};await exportButton.onclick();assert.equal(nodes.at(-1).download,'gift-codes-account-77.xlsx');assert.equal(nodes.at(-1).clicked,true);assert.equal(saved,1);console.log('PASS empty candidate list still requests account-scoped expired archive; one combined export button');
+
+context.values.script_gift_codes=['BASE'];
+const draft={value:'MANUAL001',onblur(){context.values.script_gift_codes.push(this.value);this.value='';context.change();}};
+context.document.querySelector=()=>draft;
+context.fetch=async(path,options)=>{assert.deepEqual(JSON.parse(options.body).codes,['BASE','MANUAL001']);return{ok:true,blob:async()=>({})}};
+await exportButton.onclick();assert.equal(draft.value,'');assert.equal(saved,2);
+console.log('PASS clicking export commits manually typed code before exporting, without requiring settings save');
