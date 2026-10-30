@@ -1,3 +1,5 @@
+from gift_history import purge_expired
+from action_results import safe_action_result
 from runtime_paths import node_executable
 from arena_view import store as store_arena_view, mount as mount_arena_view
 from world_map_view import store as store_world_map
@@ -8,7 +10,7 @@ from pathlib import Path
 
 from fastapi import Header,HTTPException
 
-from wx_capabilities import TASKS,MASTERS,selected_tasks
+from wx_capabilities import TASKS,MASTERS,selected_tasks,effective_settings
 
 
 
@@ -18,7 +20,8 @@ class TaskEngine:
 
   self.auth,self.conn,self.store=auth,conn,store
 
-  self.labels={f['key']:f['label'] for section in json.loads(Path(__file__).with_name('task_catalog.json').read_text(encoding='utf8')) for f in section['fields']}
+  self.catalog=json.loads(Path(__file__).with_name('task_catalog.json').read_text(encoding='utf8'))
+  self.labels={f['key']:f['label'] for section in self.catalog for f in section['fields']}
 
   self.command=command or [node_executable(),str(Path(__file__).with_name('task-worker.mjs'))]
 
@@ -76,11 +79,13 @@ class TaskEngine:
 
   session=self.store.load(user['id'],sub_id)
 
-  with self.conn() as db:row=db.execute('SELECT settings FROM task_settings WHERE sub_id=?',(sub_id,)).fetchone()
+  with self.conn() as db:
+   purge_expired(db,sub_id)
+   row=db.execute('SELECT settings FROM task_settings WHERE sub_id=?',(sub_id,)).fetchone()
 
   values=json.loads(row['settings']) if row else {}
 
-  selected=dict(values)
+  selected=effective_settings(values,self.catalog)
 
   for key,default in [('script_achievement',False),('script_afk',False),('script_gift_codes',[]),('script_interval',60)]:selected.setdefault(key,default)
 
@@ -152,6 +157,13 @@ class TaskEngine:
 
       process.stdin.write(json.dumps({'ack':event['id'],'accepted':accepted,'previous':previous})+'\n');process.stdin.flush()
 
+    elif kind=='gift_refresh':
+     from gift_daily import refresh_account
+     try:result=refresh_account(self.conn,job['sub_id'])
+     except Exception:result={'ok':False,'retryAfter':3600,'message':'禮包碼每日更新失敗，保留原名單，1 小時後再查'}
+     if not job['stopping']:
+      process.stdin.write(json.dumps({'giftUpdate':event.get('id'),'result':result})+'\n');process.stdin.flush()
+
     elif kind=='world_map':
 
      store_world_map(self.conn,job,event)
@@ -168,7 +180,11 @@ class TaskEngine:
 
      action_status=event.get('status') if event.get('status') in ('verified','rejected','unconfirmed') else 'unconfirmed'
 
-     with self.conn() as db:db.execute('UPDATE script_actions SET status=?,updated=?,result=? WHERE sub_id=? AND action_key=?',(action_status,int(time.time()),json.dumps({k:event[k] for k in ('status','win','message','serverPrompt','promptCode','promptText') if k in event}),job['sub_id'],event.get('key','')))
+     with self.conn() as db:db.execute('UPDATE script_actions SET status=?,updated=?,result=? WHERE sub_id=? AND action_key=?',(action_status,int(time.time()),json.dumps(safe_action_result(event)),job['sub_id'],event.get('key','')))
+
+     if event.get('key','').startswith('gift:') and action_status=='rejected':
+      with self.conn() as db:removed=purge_expired(db,job['sub_id'])
+      if removed:self.log(job,'禮包碼：已從候選名單移除 '+str(removed)+' 組確認過期碼；歷史保留')
 
      self.log(job,event.get('message','任務結果待確認'))
 

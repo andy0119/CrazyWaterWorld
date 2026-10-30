@@ -26,7 +26,7 @@ export async function runWorldOnlineReward({client,settings:s,state,act,log,conf
   if(!current||Number(current.num)!==stage||current.updateTime!==before.updateTime)return {status:'rejected',message:'城战在线奖励：领取阶段已变化，下一轮重新读取，未重复领取'};
   await client.sendWatch('GotWorldOnlineRwdRequest',{}, {window:1000});
   const after=get(await read());const verified=Number(after?.num)===stage+1&&Number.isSafeInteger(after.updateTime)&&after.updateTime>=Math.max(before.updateTime,start);
-  return {status:verified?'verified':'unconfirmed',message:verified?`城战在线奖励：第 ${stage+1} 阶段已领取，服务器领取计数已确认`:'城战在线奖励：领取结果未确认，暂停本模块，其他任务继续'};
+  return {status:verified?'verified':'unconfirmed',rewardStage:stage+1,counterBefore:stage,counterAfter:after?Number(after.num):null,counterTimeBefore:before.updateTime,counterTimeAfter:after?.updateTime??null,message:verified?`城战在线奖励：第 ${stage+1} 阶段已领取，服务器领取计数已确认`:'城战在线奖励：领取结果未确认，暂停本模块，其他任务继续'};
  });
  if(result?.status==='unconfirmed')throw Error('unconfirmed_world_online');
 }

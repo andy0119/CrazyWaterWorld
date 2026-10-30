@@ -1,0 +1,9 @@
+import assert from'node:assert/strict';import{runDivingGuarded}from'../backend/wx-diving.mjs';
+const config={DiveParamCfg:{data:[{paramName:'自动潜水',paramValue:2}]},DiveItemsDefinitionCfg:{data:['玻璃','金属','海藻'].map(id=>({type:'拾取',produce:[id,1]}))},BuildingUnlockCfg:{data:[{buildingId:'仓库',buildingType:'仓库'}]},BuildingUpgradeCfg:{data:[{buildingType:'仓库',level:1,effect:[['资源储量上限',100]]}]}};
+for(const mode of ['default','cap','freshCap','max','invalid','noStock','partialReward','refused']){
+ let held=mode==='cap'?95:0,reads=0,sends=0,outcome;const paused=new Set();const batch=mode==='max'?100:mode==='invalid'?101:undefined;
+ const client={connected:true,async request(n,b){if(n==='OnWaterRequest')return{divingLevel:{level:2},building:[{buildingId:'潜水船',level:1},{buildingId:'仓库',level:1}]};if(n==='AllItemRequest'){reads++;if(mode==='freshCap'&&reads===2)held=100;return{items:[{itemId:'玻璃',num:held},{itemId:'金属',num:100},{itemId:'海藻',num:100}]};}if(n==='DivingRequest'){sends++;const a=b.reward.asset[0];assert.equal(a.num,mode==='cap'?5:100);if(mode==='refused')throw{prompt:{prompt:9}};if(mode!=='noStock')held+=a.num;return{reward:{asset:[{id:'玻璃',num:mode==='partialReward'?1:a.num}]}};}throw Error(n);}};
+ const args={client,protocol:{DisplayAssetType:{ITEM:0},Prompt:{}},settings:{gather_4:true,...(batch?{ref_gather_diving_batchSize:batch}:{})},paused,config,log:()=>{},act:async(k,f)=>outcome=await f(),sleep:async()=>{}};await runDivingGuarded(args);
+ assert.equal(sends,['freshCap','invalid'].includes(mode)?0:1,mode);if(['default','cap','max'].includes(mode))assert.equal(outcome.status,'verified');if(['noStock','partialReward','refused'].includes(mode)){assert.ok(paused.has('diving'));await runDivingGuarded(args);assert.equal(sends,1);}if(mode==='freshCap')assert.equal(paused.size,0);
+}
+console.log('PASS batch default100, explicit100, stock-cap clamp, fresh-stock cancellation, invalid bound, exact reward AND stock, uncertain/refused no resend');

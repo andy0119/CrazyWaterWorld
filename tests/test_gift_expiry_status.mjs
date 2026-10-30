@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {runGiftCodes} from '../backend/wx-gift-codes.mjs';
+import {loadProtocol} from '../backend/wx-game/proto.mjs';
+const protocol=loadProtocol(),settings={script_gift_codes:['EXPIRED','USED','INVALID','UNKNOWN']},outcomes=[],logs=[];
+const client={request:async(req,body)=>{if(req==='AllItemRequest')return{items:[]};if(req==='AllResourceRequest')return{list:[]};throw{prompt:{prompt:({EXPIRED:63,USED:65,INVALID:64,UNKNOWN:99})[body.giftCode]}};}};
+await runGiftCodes({client,settings,protocol,act:async(k,fn)=>{const r=await fn();outcomes.push(r);return r},log:m=>logs.push(m),sleep:async()=>{}});
+assert.deepEqual(outcomes.map(o=>o.giftCodeStatus),['expired','used','invalid','unconfirmed']);
+assert.deepEqual(settings.script_gift_codes,['USED','INVALID','UNKNOWN']);
+assert.ok(logs.some(m=>m.includes('已領取 1')&&m.includes('過期移除 1')&&m.includes('無效／不適用 1')));
+console.log('PASS numeric real-protocol expiry/use/invalid separation; remove expiry only; unknown99 retained');

@@ -4,6 +4,71 @@
 
 以 FastAPI、SQLite、Node.js 與原生 HTML／JavaScript 建立的本機開發版本。提供管理帳號、遊戲角色、任務設定、執行日誌與世界地圖。尚未完成所有功能或新電腦上的完整登入驗收；介面有開關不代表功能已完成。
 
+## 第一次使用（Windows）
+
+1. 安裝 [Python 3.12](https://www.python.org/downloads/windows/)（勾選 **Add Python to PATH**）與 [Node.js 22 或以上](https://nodejs.org/en/download)（包含 npm）。裝過就不用重裝。
+2. 從 GitHub 的 **Code → Download ZIP** 下載並解壓縮。
+3. 雙擊 **`Install-Aurora.cmd`**，等待顯示安裝完成。它會自動建立 `.venv` 並安裝 Python、Node 依賴，不改你的帳號資料或 SDK 配置。
+4. 雙擊 **`Start-Aurora.cmd`**，瀏覽器會自動開啟 [管理頁面](http://127.0.0.1:8000/)。第一次先建立管理帳號。
+
+之後日常使用只需雙擊 `Start-Aurora.cmd`。安裝時需要網路；若出現下載失敗，確認網路後重跑安裝即可。
+
+**安裝依賴完成不代表所有管道登入已完成。** 微信登入仍需有效的本機 SDK 配置；APP／抖音新帳號登入的限制見下方「管道與功能狀態」。本倉庫不附帶登入密鑰或別人的帳號資料。
+
+不用另外裝資料庫、Git、Docker、模擬器、抓包工具或測試憑證。SQLite 隨 Python 提供。模擬器只供尚未完成的實驗流程使用。
+
+## 平常怎麼用
+
+- 雙擊啟動，新增已支援的遊戲角色，保存任務設定，再按「開始」。
+- 修改任務設定後，先保存，再停止／開始該帳號任務。
+- 電腦與啟動視窗要保持執行；關機或睡眠會中斷任務。關閉瀏覽器不會停止後端。
+- 停止帳號用網頁的「停止」；關閉網站服務則在啟動視窗按 `Ctrl+C`。
+
+## 更新程式
+
+先停止任務及網站，備份自己的資料庫與本機配置，再更新程式檔案。**保留原本的 SQLite、`*.local.json` 和實際 `sdk-config.json`**，不要用別人的資料覆蓋。
+
+更新後再雙擊 `Install-Aurora.cmd` 更新依賴，接著雙擊 `Start-Aurora.cmd`。重新開始需要執行的帳號；服務重啟不會自動恢復所有任務。
+
+<details>
+<summary>進階：登入配置與手動安裝指令</summary>
+
+### 登入配置（需要自行提供）
+
+微信登入交換讀取 `backend/wx-game/sdk-config.json`。有權使用的環境需自行提供對應 `appId`、`appSecretKey`；範例是空白格式，**複製空白檔案不會讓登入自動可用**。
+
+```powershell
+if (!(Test-Path backend/wx-game/sdk-config.json)) {
+    Copy-Item backend/wx-game/sdk-config.example.json backend/wx-game/sdk-config.json
+}
+```
+
+填入環境所需的有效配置，勿將實際密鑰、遊戲會話或帳密提交到 GitHub。抖音實驗模組有對應的 `backend/douyin-game/sdk-config.example.json`，但提供配置不代表其新帳號登入流程已完成。
+
+
+### 手動安裝（可取代 Install-Aurora.cmd）
+
+在專案根目錄執行：
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+npm.cmd install --prefix backend/wx-game
+npm.cmd install --prefix backend/douyin-game
+.\.venv\Scripts\python.exe launch.py
+```
+
+不必啟用虛擬環境或更改 PowerShell 執行政策。Node 可透過 `AURORA_NODE` 指定路徑。遊戲會話使用 Windows DPAPI，不能直接搬給另一位 Windows 使用者或 Linux 主機。
+
+- 更新 Python 後端：重新啟動網站。
+- 更新 Node 任務：停止後重新開始帳號；自動重連不會載入新程式。
+- 更新前端：重新整理頁面。
+
+</details>
+
+<details>
+<summary>管道與功能狀態（展開查看）</summary>
+
 ## 管道與功能狀態
 
 | 管道 | 現況 |
@@ -20,94 +85,20 @@
 - 潛水：目前是固定數量的協議補庫試接，預設每批玻璃、金屬、海藻各 100，受倉庫上限及雙重回執核對限制；尚未完成真實單次採集上限／收集流程，不能視為完整自動潛水。
 - 自動拾荒、完整對局、普通廣告播放完成回調等仍未完成。廣告任務／商店僅接官方 VIP 免廣告資格路徑，仍有待實機驗證的項目。
 
-## 必要環境
+</details>
 
-目前以 **Windows 10／11 64 位元**為目標；遊戲會話使用 Windows DPAPI，不能直接搬給其他 Windows 使用者或 Linux 主機使用。
+## 把自己的修改推到 GitHub
 
-1. Python 3.12（包含 pip）：[官方下載](https://www.python.org/downloads/windows/)。
-2. Node.js 22 或以上（包含 npm）：[官方下載](https://nodejs.org/en/download)。
-3. Chrome、Edge 或其他現代瀏覽器。
-4. 自己的遊戲帳號，以及對應管道所需的有效本機 SDK 配置。
-5. Git 僅在使用 Git 指令下載／更新時需要：[官方下載](https://git-scm.com/downloads)。也可從 GitHub 下載 ZIP。
-
-一般任務執行不需要另外安裝 MySQL、Docker、Npcap、Wireshark、抓包代理或測試 CA。SQLite 隨 Python 提供。模擬器與 Android 開發工具只供實驗模組使用，不是已完成的通用部署流程。
-
-## 第一次安裝
-
-在 PowerShell 執行，或下載 ZIP 後進入包含 `launch.py` 的資料夾：
+只有推送原始碼才需要安裝 Git，並登入有此倉庫寫入權限的 GitHub 帳號。在專案資料夾開啟 PowerShell：
 
 ```powershell
-git clone https://github.com/andy0119/CrazyWaterWorld.git
-cd CrazyWaterWorld
-py -3.12 --version
-node --version
-npm.cmd --version
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --upgrade pip
-.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
-npm.cmd install --prefix backend/wx-game
+git status
+git add -A
+git commit -m "更新功能與說明"
+git push origin main
 ```
 
-抖音實驗模組如需其協議套件，再安裝：
-
-```powershell
-npm.cmd install --prefix backend/douyin-game
-```
-
-直接呼叫虛擬環境的 Python，不需要執行 `Activate.ps1` 或更改 PowerShell 執行政策。若系統找不到 `py`，請改用你安裝的 Python 3.12 執行檔路徑。
-
-### 登入交換配置（原始碼不包含密鑰）
-
-微信登入交換讀取 `backend/wx-game/sdk-config.json`。有權使用的環境需自行提供對應 `appId`、`appSecretKey`；範例是空白格式，**複製空白檔案不會讓登入自動可用**。
-
-```powershell
-if (!(Test-Path backend/wx-game/sdk-config.json)) {
-    Copy-Item backend/wx-game/sdk-config.example.json backend/wx-game/sdk-config.json
-}
-```
-
-填入環境所需的有效配置，勿將實際密鑰、遊戲會話或帳密提交到 GitHub。抖音實驗模組有對應的 `backend/douyin-game/sdk-config.example.json`，但提供配置不代表其新帳號登入流程已完成。
-
-### 安裝檢查
-
-```powershell
-.\.venv\Scripts\python.exe -c "import fastapi, uvicorn, pydantic, sqlite3; print('Python dependencies OK')"
-node -e "require('./backend/wx-game/node_modules/protobufjs/minimal'); console.log('Node dependencies OK')"
-```
-
-## 日常啟動與使用
-
-1. 雙擊 `Start-Aurora.cmd`，優先使用專案的 `.venv`。
-2. 或在專案根目錄執行：
-
-```powershell
-.\.venv\Scripts\python.exe launch.py
-```
-
-3. 瀏覽器開啟 [本機管理頁](http://127.0.0.1:8000/)。新資料庫需先建立管理帳號；管理帳號與遊戲帳號不同。
-4. 依已支援管道新增角色、確認角色／區服，配置並保存任務，再按「開始」。
-5. 由「動態」看實際回執；地圖請由已登入管理頁的帳號連結進入。新開分頁沒有登入狀態時只會顯示固定城池。
-6. 修改設定後先保存，再停止／開始該帳號任務。尚未接通的勾選項會被啟動檢查拒絕。
-
-服務及電腦必須持續運作；關機或休眠會中斷本機任務。關閉瀏覽器不等於停止後端。停止單一帳號請按「停止」；關閉後端在服務終端按 `Ctrl+C`。不要同時用其他遊戲客戶端操作同一角色，以免會話互相影響。
-
-第一次啟動會建立本機 SQLite。Node 優先讀 `AURORA_NODE`，其次尋找 PATH 中的 `node`，最後兼容原開發環境的執行檔；不必安裝 Codex 才能用標準環境啟動。舊啟動器的開發機相容分支不替代上述安裝步驟。
-
-## 更新與重新載入
-
-先停止任務及後端，備份自己的資料庫與本機配置，再執行：
-
-```powershell
-git pull --ff-only
-.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
-npm.cmd install --prefix backend/wx-game
-.\.venv\Scripts\python.exe launch.py
-```
-
-- 更新 Python 後端／功能清單：需重啟後端。
-- 更新 Node 任務：需停止後再開始帳號；自動重連不會重新載入程式。
-- 更新前端：重新整理頁面。
-- 重啟服務不會自動恢復全部帳號任務，請檢查角色授權後自行開始。
+先看 `git status` 確認檔案範圍；`.gitignore` 會排除已列出的資料庫、密鑰與依賴，但自行新增檔案仍需檢查。若遠端版本較新而推送被拒，先處理 `git pull --rebase origin main` 的結果，再推送；不要使用強制推送。
 
 ## 本機資料與上傳範圍
 
@@ -125,13 +116,50 @@ npm.cmd install --prefix backend/wx-game
 - **沒有收到獎勵**：以 `verified` 與實際庫存／計數為準；`unconfirmed` 不代表成功，也不會自動重送該次操作。
 - **GitHub 上傳完成是否就會掛機？** 不會。GitHub 是程式碼儲存庫，GitHub Pages 不能執行 Python、Node、SQLite 或常駐任務；仍需持續開機的 Windows 主機。公開多人服務、跨平台與雲端部署尚未完成驗收。
 
+## 每日自動更新禮包碼
+
+在「福利」開啟「每日自动更新礼包码」，保存後重新開始帳號任務。升級程式後需先重新啟動網站服務。
+
+- 依 Asia/Taipei 日期，每天首次執行時讀取固定的游俠公開頁面；多帳號共用當日快取，服務重啟後仍可沿用。
+- 來源新列出的碼排在前面，與原名單合併去重並保存；每輪最多嘗試 10 組新碼，已嘗試過的跳過。
+- 讀取失敗保留原名單，1 小時後再查；名單沒有固定組數上限，會與原名單去重合併。
+- 每日檢查不代表網站每天發布新碼，也不保證有效性；以遊戲伺服器實際回覆為準。
+- 更新不會清除已嘗試紀錄，也不會解除結果未確認造成的兌換暫停。重新整理任務設定頁可看保存後的名單。
+- 網站與帳號任務需持續運行；電腦關機、睡眠或停止任務時不會檢查，恢復執行後才會補查當天。
+
+## 禮包碼 Excel 匯入／匯出
+
+任務設定的禮包碼區提供「Excel 导入」與「Excel 导出／范例」。匯出包含目前名單的「礼包码」與已確認過期碼的「過期」兩張工作表。即使目前名單為空，仍可匯出過期紀錄；兩表皆空時可作空白範例。範例檔也在 `web/gift-codes-template.xlsx`。
+
+- 使用 `.xlsx`，一列一組，標題為「礼包码」、「禮包碼」或 `code`；無標題時讀取第一欄。優先讀取名為「礼包码／禮包碼」的工作表，否則讀取第一張。
+- 將禮包碼欄設為文字，保留大小寫與開頭的 0。範例的 EXAMPLE_ONLY_001／002 會略過，請換成真實碼。
+- 匯入會與目前畫面名單合併並去重；名單沒有固定組數上限；單次匯入仍保留檔案 2 MB、工作表約 10000 行的處理保護，可分批匯入。不接受公式或數字儲存格，避免識別碼被 Excel 改寫。
+- 匯入後按「保存設置」才寫入目前帳號；不會自動兌換或清除已嘗試紀錄。超限或讀取失敗不改動原名單。
+- 執行時每輪最多嘗試 10 組新碼，已嘗試過的不計入，剩餘碼留到下一輪；結果未確認時提前暫停兌換，不自動重送。
+- 過期、已領取、無效／不適用、其他帳號已用分別記錄。伺服器明確確認過期的碼會從該帳號名單移除，歷史保留，來源更新與保存時也會排除；已領取及未確認的碼不會當成過期刪除。
+- 匯出目前畫面的候選碼（包含尚未保存的修改），並將本帳號伺服器已確認過期的碼放入「過期」工作表；不含登入資料。重新匯入只讀主表，不會把過期表加回任務。
+- 升級此功能後，先依原安裝方式執行 `python -m pip install -r backend/requirements.txt`，再重啟網站並重新整理頁面。重啟會中止當前任務，請自行選擇時間，之後重新開始帳號。
+
+## 離線回歸檢查
+
+先完成上方 Python 與 Node 依賴安裝，在專案根目錄執行：
+
+```powershell
+python tests/run_regressions.py
+```
+
+目前包含 40 組 Node 案例及 25 組 Python 檢查，涵蓋封包序號／相容接收、工廠與種植、需求補料、海盜／競技場、貨輪／城戰、商店、地圖及設定總開關。測試使用模擬狀態，不開遊戲會話、不使用登入憑證、不會領獎或消耗遊戲資源。通過測試代表這些案例通過，不能代替正式遊戲驗收。
+
+2026-10-30 的欄位對照、實際任務觀察及尚待驗證項目見 [稽核紀錄](AUDIT-2026-10-30.md)。
+
 ## 專案結構與第三方來源
 
 - `web/`：管理介面、任務配置與地圖。
 - `backend/`：API、資料庫、角色會話、登入橋接與任務執行器。
 - `backend/wx-game/`、`backend/douyin-game/`：協議／配置與實驗交換模組。
 - `backend/wx-login/`：微信掃碼橋接。
-- `android/`：Android 外殼原始碼，並非已完成的 APK 發布版。
+- `Install-Aurora.cmd`、`install_aurora.py`：自動建立虛擬環境並安裝依賴。
 - `launch.py`、`Start-Aurora.cmd`：本機啟動入口。
+- `tests/`：不連線遊戲的回歸檢查。
 
 第三方協議、橋接及相關來源說明請保留各目錄中的 `NOTICE.txt`。本倉庫未新增涵蓋所有第三方檔案的開源授權；使用或再散布前應確認各來源的授權條件。

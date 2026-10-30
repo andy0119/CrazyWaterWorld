@@ -1,3 +1,4 @@
+from gift_history import expired_codes
 from loot_settings import validate_loot_settings
 import os,sqlite3,secrets,hashlib,hmac,time,json,math
 from contextlib import contextmanager
@@ -145,11 +146,16 @@ class TaskSettings(BaseModel):
  values:dict
 
 @app.get('/api/gift-codes/latest')
-def gift_codes_latest(authorization:str|None=Header(None)):
+def gift_codes_latest(account:int|None=None,authorization:str|None=Header(None)):
  auth(authorization)
  from gift_code_source import latest_codes
  fallback=json.loads((ROOT/'web'/'gift-codes.json').read_text(encoding='utf8'))
- return latest_codes(fallback)
+ data=latest_codes(fallback)
+ if account is not None:
+  own_sub(account,authorization)
+  with conn() as db:expired=expired_codes(db,account)
+  data={**data,'codes':[c for c in data['codes'] if c not in expired]}
+ return data
 
 @app.get('/api/task-catalog')
 def task_catalog(authorization:str|None=Header(None)):
@@ -162,13 +168,15 @@ def get_settings(sub_id:int,authorization:str|None=Header(None)):
  with conn() as c:r=c.execute('SELECT settings,updated FROM task_settings WHERE sub_id=?',(sub_id,)).fetchone()
  values={k:f['default'] for k,f in FIELDS.items()}
  if r:values.update(json.loads(r['settings']))
+ with conn() as db:expired=expired_codes(db,sub_id)
+ values['script_gift_codes']=[c for c in values.get('script_gift_codes',[]) if c.strip() not in expired]
  return {'values':values,'updated':r['updated'] if r else None,'execution_available':False}
 
 @app.put('/api/sub-user/{sub_id}/settings')
 def save_settings(sub_id:int,x:TaskSettings,authorization:str|None=Header(None)):
  own_sub(sub_id,authorization)
  if set(x.values)-FIELDS.keys():raise HTTPException(422,'未知設定欄位')
- if len(json.dumps(x.values))>100000:raise HTTPException(422,'設定內容過長')
+ if len(json.dumps({k:v for k,v in x.values.items() if k!='script_gift_codes'}))>100000 or len(json.dumps(x.values))>5*1024*1024:raise HTTPException(422,'設定內容過長')
  for key,value in x.values.items():
   f=FIELDS[key];typ=f['type'];valid=True
   if typ=='bool':valid=type(value) is bool
@@ -179,7 +187,7 @@ def save_settings(sub_id:int,x:TaskSettings,authorization:str|None=Header(None))
   elif typ=='numbers':valid=isinstance(value,list) and len(value)<=100 and all(type(v) in (int,float) and math.isfinite(v) and 0<=v<=1000000000 for v in value)
   elif typ=='map':valid=isinstance(value,dict) and len(value)<=100 and all(isinstance(k,str) and 0<len(k)<=100 and type(v) in (int,float) and math.isfinite(v) and 0<=v<=1000000000 for k,v in value.items())
   elif typ=='text':valid=isinstance(value,str) and len(value)<=200
-  elif typ=='list':valid=isinstance(value,list) and len(value)<=f.get('maxItems',100) and all(isinstance(v,str) and 0<len(v)<=100 for v in value)
+  elif typ=='list':valid=isinstance(value,list) and (key=='script_gift_codes' or len(value)<=f.get('maxItems',100)) and all(isinstance(v,str) and 0<len(v)<=100 for v in value)
   elif typ=='crops':
    valid=isinstance(value,list) and len(value)==len(f['default'])
    if valid:
@@ -189,9 +197,13 @@ def save_settings(sub_id:int,x:TaskSettings,authorization:str|None=Header(None))
  try:validate_loot_settings(x.values)
  except ValueError as exc:raise HTTPException(422,str(exc))
  values={k:f['default'] for k,f in FIELDS.items()};values.update(x.values)
+ with conn() as db:expired=expired_codes(db,sub_id)
+ original=values.get('script_gift_codes',[])
+ values['script_gift_codes']=[c for c in original if c.strip() not in expired]
+ expired_removed=len(original)-len(values['script_gift_codes'])
  updated=int(time.time())
  with conn() as c:c.execute('INSERT INTO task_settings VALUES(?,?,?) ON CONFLICT(sub_id) DO UPDATE SET settings=excluded.settings,updated=excluded.updated',(sub_id,json.dumps(values,ensure_ascii=False),updated))
- return {'success':True,'updated':updated,'message':'設定已儲存；微信可執行「福利 → 已接通任務」，變更需停止後重新開始'}
+ return {'success':True,'updated':updated,'expired_removed':expired_removed,'gift_codes':values['script_gift_codes'],'message':'設定已儲存；微信可執行「福利 → 已接通任務」，變更需停止後重新開始'}
 
 from game_sessions import GameSessionStore,mount_session_routes
 session_store=GameSessionStore(conn)
@@ -217,4 +229,6 @@ mount_emulator_tasks(app,auth,conn)
 from world_map_view import mount as mount_world_map
 mount_world_map(app,conn,auth,session_store,script_engine)
 
+from gift_excel import mount as mount_gift_excel
+mount_gift_excel(app,auth,conn,own_sub)
 app.mount('/',StaticFiles(directory=ROOT/'web',html=True),name='web')

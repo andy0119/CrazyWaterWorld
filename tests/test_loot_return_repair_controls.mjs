@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import {runTreasureLoot,runTreasureLootGuarded,lootWindow,lootMatches,lootOwnerMatches,nearestLootCity} from '../backend/wx-treasure-loot.mjs';
+const at=Date.UTC(2026,9,20,4)/1000,p='ref_world_treasureLoot_fleets_0_';
+const protocol={FleetState:{IDLE:1,MOVING:2,BATTLING:3,REPAIRING:4},Resource:{RUBY:4},SpeedUpCost:{SPEED_UP_RUBY:1}};
+const config={ModuleOpenCfg:{data:[{moduleId:'世界',playerLevel:6}]},GuildTitleCfg:{data:[{title:2,treasureLoot:1}]},TreasureLootParamCfg:{data:[{paramName:'每日宝藏奖励次数',paramValue:3}]},WorldParamCfg:{data:[{paramName:'进攻宝藏消耗汽油',paramValue:500},{paramName:'行军加速消耗',paramValue:30}]},SpeedUpRubyCfg:{data:[{fleet:20}]},'1_CityCfg':{data:[{id:1,level:1},{id:2,level:2},{id:101,level:15}]}};
+const map={mapInfo:{width:10,tileWidth:100,tileHeight:75},cityInfo:{1:{gridIdx:0},2:{gridIdx:9},101:{gridIdx:8}}};
+const base={uid:12,color:5,ownerFleetNum:0,progress:0,reward:{asset:[{id:'木',num:1},{id:'铁',num:2}]}};
+const settings={ref_world_treasureLoot_enabled:true,[p+'enabled']:true,[p+'levels']:5};
+assert.deepEqual(lootWindow({[p+'recallChipMine']:true,[p+'recallChipMineLeadMin']:15},p,at-10*60),{active:true,preRecall:true});
+assert.equal(lootWindow({[p+'hours']:['18']},p,at).active,false);
+assert.equal(lootMatches({...base,progress:100},settings,p),false);
+assert.equal(lootMatches(base,{...settings,[p+'filterReward']:true,[p+'rewardFilter']:['木','铁'],[p+'rewardFilterMode']:'count',[p+'rewardFilterCount']:2},p),true);
+assert.equal(lootMatches(base,{...settings,[p+'rewardBlock']:['木']},p),false);
+const occupied={...base,ownerFleetNum:1},guilds=[{id:1001,name:'友盟'},{id:1002,name:'对手盟'}],defence=[{name:'甲玩家',guildIdx:2}];
+assert.equal(lootOwnerMatches(occupied,defence,{[p+'safeWord']:['甲'],[p+'safeBy']:'nickname'},p,1,guilds),false);
+assert.equal(lootOwnerMatches(occupied,defence,{[p+'chaseEnabled']:true,[p+'chaseBy']:'guild',[p+'chaseWord']:['对手盟']},p,1,guilds),true);
+assert.equal(lootOwnerMatches(occupied,defence,{[p+'chaseEnabled']:true,[p+'chaseWord']:['甲'],[p+'safeBy']:'guild',[p+'safeWord']:['对手盟']},p,1,guilds),false);
+assert.equal(lootOwnerMatches(occupied,[{name:'甲',guildIdx:1}],{[p+'followAlly']:true,[p+'followWord']:['甲']},p,1,guilds),true);
+assert.equal(lootOwnerMatches(occupied,[],{},p,1,guilds),true);
+assert.equal(lootOwnerMatches(occupied,[],{[p+'safeWord']:['甲']},p,1,guilds),false);
+assert.equal(lootOwnerMatches(occupied,[],{[p+'followAlly']:true,[p+'followWord']:['甲']},p,1,guilds),false);
+assert.equal(nearestLootCity({world:{cities:[{id:1,guildIdx:1},{id:2,guildIdx:1}]},map,config,myGuild:1}).id,2);
+async function scenario({s={},fleet:extra={},targets=[base],cap=0,petrol=10000,diamonds=1000,wrong=null,history=[],time=at,title=2,defenders=defence,guildList=guilds,mutateBefore=false,failRequest=null}={}){
+ let current={buildingId:'1远征船',state:1,durability:100,maxDura:100,treasureLootUid:0,cityId:1,...extra},fuel=petrol,ruby=diamonds,logs=[],calls=[],keys=[],listReads=0;
+ const h=new Set(history),client={connected:true,serverClockOffsetMs:time*1000-Date.now(),async request(req,body){if(req===failRequest)throw Error('connection_lost');switch(req){case'GuildInfoRequest':return{guild:{guildId:'1001'},myTitle:title};case'UniteWorldsPlanRequest':return{};case'MyFleetsRequest':return{fleets:[structuredClone(current)]};case'TreasureLootStatsRequest':return{todayRewardTimes:cap,nextRefreshTime:time+3600};case'AllItemRequest':return{items:[{itemId:'汽油',num:fuel}]};case'AllResourceRequest':return{list:[{res:4,amount:ruby}]};case'TreasureLootListRequest':listReads++;return{treasure:mutateBefore&&listReads>1?[]:targets};case'TreasureLootDefenceRequest':return{fleets:defenders};case'AllGuildAbstractionRequest':return{guilds:guildList};case'ChipMineRequest':return{occupiedPositions:[{player:{fleetId:'1远征船',rewardTimes:1}}]};case'FleetRepairParamRequest':return{unitRepairCost:2,unitRepairTime:1};case'WorldInfoRequest':return{cities:[{id:1,guildIdx:1},{id:2,guildIdx:1}]};default:throw Error('Unexpected read '+req);}},async sendWatch(req,body){calls.push([req,body]);if(wrong===req)return;
+ switch(req){case'TreasureLootSendFleetsRequest':fuel-=500;current.state=2;current.treasureLootUid=body.uid;current.moveEndTs=time+200;break;
+ case'SpeedUpFleetRequest':ruby-=30;current.moveEndTs=time+Math.ceil((current.moveEndTs-time)/2);break;
+ case'RepairFleetRequest':fuel-=(current.maxDura-current.durability)*2;current.state=4;current.repairing={endTs:time+120};break;
+ case'SpeedUpRepairRequest':ruby-=20;current.durability=current.maxDura;current.state=1;current.repairing=null;break;
+ case'ChipMineRetreatRequest':current.chipWar=null;current.state=2;current.curGridIdx=0;current.treasureLootUid=0;break;
+ case'MoveFleetsToCityRequest':current.state=2;current.targetCityId=body.cityId;break;
+ default:throw Error('Unexpected write '+req);
+ }}};
+ const paused=new Set();const run=()=>runTreasureLoot({client,protocol,config,map,state:{level:21,scenarioId:1},settings:{...settings,...s},act:async(k,fn)=>{keys.push(k);return fn();},log:m=>logs.push(m),history:h,sleep:async()=>{}});
+ await runTreasureLootGuarded({client,paused,run,log:m=>logs.push(m)});return{calls,keys,logs,h,paused,current,fuel,ruby,run};
+}
+const writes=x=>x.calls.map(x=>x[0]);
+
+const returning={state:2,treasureLootUid:12,startGridIdx:33,targetGridIdx:0,moveEndTs:at+200};
+let r=await scenario({fleet:returning,s:{[p+'marchSpeedup']:true}});assert.equal(writes(r).includes('SpeedUpFleetRequest'),false);
+r=await scenario({fleet:returning,s:{[p+'returnSpeedup']:true,[p+'marchSpeedup']:false,[p+'marchSpeedupTargetSecs']:100}});assert.ok(writes(r).includes('SpeedUpFleetRequest'));
+r=await scenario({fleet:{durability:50},targets:[],cap:3});assert.deepEqual(writes(r),['RepairFleetRequest']);assert.equal(r.ruby,1000);
+r=await scenario({fleet:{durability:50},targets:[],cap:3,s:{[p+'repairSpeedup']:true}});assert.deepEqual(writes(r),['RepairFleetRequest','SpeedUpRepairRequest']);
+r=await scenario({fleet:{durability:50},targets:[],s:{[p+'autoRepairAfterReturn']:false}});assert.equal(writes(r).includes('RepairFleetRequest'),false);
+console.log('PASS outbound switch never speeds returns, explicit return switch works, idle repair before reward cap/no target, repair speedup requires separate opt-in');

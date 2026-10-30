@@ -1,4 +1,5 @@
 TASKS={
+ 'script_gift_daily_update':'每日抓取公开礼包码（更新候选名單，每轮最多兑换10组新码）',
  'ref_world_fleet_idleRepair':'无任务在港舰队自动普通修复（默认开启；报价、汽油扣除与维修状态核对，待实机验证）',
  'ref_hero_show':'英雄技能展示奖励（持有英雄、未领名单、配置奖励与入库核对；不属于广告）',
  'ref_world_chipMine_enabled':'芯片矿空位派遣（所选舰队与等级、时段、次数、空位与目标核对；不抢占、不耗钻，待实机验证）',
@@ -220,6 +221,28 @@ MASTERS={'ref_world_limitedBoss_enabled','ref_world_cityWar_fleets_0_marchSpeedu
 
 # Implemented parent-task options; do not treat these modifiers as standalone tasks.
 MASTERS.update({'ref_world_treasureLoot_fleets_0_returnSpeedup', 'ref_world_chipMine_fleets_1_enabled', 'ref_guild_ship_captain', 'ref_world_treasureLoot_fleets_1_repairSpeedup', 'ref_world_chipMine_fleets_1_emptyOnly', 'ref_world_treasureLoot_fleets_2_returnSpeedup', 'ref_shop_allowRuby', 'ref_world_treasureLoot_fleets_2_autoRepairAfterReturn', 'ref_guild_ship_fallbackEnabled', 'ref_world_treasureLoot_fleets_1_autoRepairAfterReturn', 'ref_world_treasureLoot_fleets_0_repairSpeedup', 'ref_world_treasureLoot_fleets_2_repairSpeedup', 'ref_world_chipMine_fleets_2_emptyOnly', 'ref_world_chipMine_fleets_2_enabled', 'ref_world_chipMine_fleets_0_enabled', 'ref_world_chipMine_fleets_0_emptyOnly', 'ref_world_treasureLoot_fleets_1_returnSpeedup', 'ref_world_treasureLoot_fleets_0_autoRepairAfterReturn'})
+
+def effective_settings(values,catalog):
+ """Preserve saved preferences while disabling hidden child switches in this run.
+
+ Mirrors the settings page scope rule; independent AFK collection is not gated
+ by the main-stage challenge switch. Unknown keys remain subject to validation.
+ """
+ selected=dict(values)
+ for section in catalog:
+  fields=section.get('fields',[])
+  masters=[f for f in fields if f.get('type')=='bool' and '总开关' in f.get('label','') and f.get('source_path','').endswith('.enabled')]
+  for field in fields:
+   if field.get('type')!='bool' or selected.get(field['key']) is not True:continue
+   path=field.get('source_path','')
+   for master in masters:
+    if master['key']==field['key']:continue
+    scope=master['source_path'][:-len('.enabled')]
+    if scope=='battle.stage' and path.startswith('battle.stage.afk.'):continue
+    if path.startswith(scope+'.') and values.get(master['key']) is not True:
+     selected[field['key']]=False
+     break
+ return selected
 
 def selected_tasks(values):
 

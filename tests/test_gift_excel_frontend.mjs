@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(new URL('../web/gift-code-excel.js',import.meta.url),'utf8'),context);
+const merge=(...args)=>JSON.parse(JSON.stringify(context.mergeGiftCodeLists(...args)));
+assert.deepEqual(merge(['OLD','00123'],['00123','AbC','AbC','abc']),{codes:['OLD','00123','AbC','abc'],added:2,duplicates:2});
+const current=['OLD'];assert.throws(()=>merge(current,['NEW'],1),/原名单未变更/);assert.deepEqual(current,['OLD']);
+assert.deepEqual(merge([],[]),{codes:[],added:0,duplicates:0});
+console.log('PASS Excel merge preserves case/leading zero, deduplicates, and leaves draft unchanged on overflow');
+const nodes=[],messages=[];let saved=0,drawn=0;
+const element=(tag,text)=>({tag,textContent:text,setAttribute(name,value){this[name]=value},append(...children){this.children=children},click(){this.clicked=true},remove(){}});
+Object.assign(context,{el:element,token:'synthetic-test-token',account:77,values:{script_gift_codes:['OLD']},change(){saved++},draw(){drawn++},message(text){messages.push(text)},document:{body:{appendChild(n){nodes.push(n)}}},URL:{createObjectURL:()=> 'blob:unit-test',revokeObjectURL(){}},setTimeout:fn=>fn()});
+const tools=element('div');context.addGiftExcelTools(tools,{key:'script_gift_codes',maxItems:1000});
+const [importButton,exportButton,input]=tools.children;
+assert.equal(tools.children.length,3);assert.equal(exportButton.textContent,'Excel 导出／范例');
+assert.equal(input.accept,'.xlsx');importButton.onclick();assert.equal(input.clicked,true);
+context.fetch=async(path,options)=>{assert.equal(options.method,'POST');assert.match(path,/import-excel/);return {ok:true,json:async()=>({codes:['00123','NEW','OLD'],duplicates:1})}};
+input.files=[{name:'清单.xlsx',size:100}];await input.onchange();assert.deepEqual(JSON.parse(JSON.stringify(context.values.script_gift_codes)),['OLD','00123','NEW']);assert.equal(saved,1);assert.equal(drawn,1);assert.match(messages.at(-1),/请保存设置/);
+input.files=[{name:'too-large.xlsx',size:3*1024*1024}];await input.onchange();assert.equal(saved,1);assert.match(messages.at(-1),/2 MB/);
+context.fetch=async(path,options)=>{assert.match(path,/export-excel/);assert.deepEqual(JSON.parse(options.body).codes,['OLD','00123','NEW']);return {ok:true,blob:async()=>({})}};
+await exportButton.onclick();assert.equal(nodes[0].download,'gift-codes-account-77.xlsx');assert.equal(nodes[0].clicked,true);assert.equal(saved,1);
+console.log('PASS import/export buttons download template, merge draft, reject oversized file and export unsaved list without saving/redeeming');
+
+context.values.script_gift_codes=[];context.fetch=async(path,options)=>{const body=JSON.parse(options.body);assert.equal(body.account,77);assert.deepEqual(body.codes,[]);return {ok:true,blob:async()=>({})}};await exportButton.onclick();assert.equal(nodes.at(-1).download,'gift-codes-account-77.xlsx');assert.equal(nodes.at(-1).clicked,true);assert.equal(saved,1);console.log('PASS empty candidate list still requests account-scoped expired archive; one combined export button');

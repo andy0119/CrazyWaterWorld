@@ -25,10 +25,10 @@ def parse_article(html):
  stamp=re.search(r'更新时间[：:]\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(?::\d{2})?)',text)
  return {'codes':codes,'source':SOURCE,'source_updated_at':stamp.group(1) if stamp else None}
 _lock=threading.Lock();_cached=None;_at=0
-def latest_codes(fallback):
+def latest_codes(fallback,force=False):
  global _cached,_at
  with _lock:
-  if _cached and time.monotonic()-_at<300:return dict(_cached)
+  if not force and _cached and time.monotonic()-_at<300:return dict(_cached)
   try:
    request=urllib.request.Request(SOURCE,headers={'User-Agent':'Mozilla/5.0'})
    with urllib.request.urlopen(request,timeout=12) as response:

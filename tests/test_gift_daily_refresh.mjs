@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {refreshDailyGiftCodes} from '../backend/gift-daily-refresh.mjs';
+const at=Date.UTC(2026,9,30,15),settings={script_gift_daily_update:true,script_gift_codes:['OLD']},state={},logs=[];let calls=0;
+const request=async()=>{calls++;return{ok:true,day:new Date(at+8*3600000).toISOString().slice(0,10),codes:['NEW','OLD'],message:'updated'}};
+await refreshDailyGiftCodes({settings,state,request,log:m=>logs.push(m),now:at});
+assert.equal(calls,1);assert.deepEqual(settings.script_gift_codes,['NEW','OLD']);
+await refreshDailyGiftCodes({settings,state,request,log:()=>{},now:at+60000});assert.equal(calls,1);
+let failed=0;const retryState={},original={script_gift_daily_update:true,script_gift_codes:['KEEP']};
+const failure=async()=>{failed++;return{ok:false,retryAfter:3600}};
+for(const time of [at,at+60000])await refreshDailyGiftCodes({settings:original,state:retryState,request:failure,log:()=>{},now:time});
+assert.equal(failed,1);assert.deepEqual(original.script_gift_codes,['KEEP']);
+await refreshDailyGiftCodes({settings:{script_gift_daily_update:false},state:{},request:()=>{throw Error('must not fetch')},log:()=>{},now:at});
+console.log('PASS daily refresh once per Taipei date, runtime candidate update, failed-fetch backoff and disabled no-op');

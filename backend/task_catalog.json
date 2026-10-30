@@ -16811,10 +16811,16 @@
         "execution_note": "到期挂机收益"
       },
       {
+        "key": "script_gift_daily_update",
+        "label": "每日自动更新礼包码",
+        "type": "bool",
+        "default": false,
+        "help": "每天首次执行时读取游侠公开页面，合并并保存候选码；网站和账号任务需持续执行。失败保留原名单，1小时后重试。已尝试纪录不清除；未确认暂停不自动解除。"
+      },
+      {
         "key": "script_gift_codes",
         "label": "禮包碼（每組只嘗試一次）",
         "type": "list",
-        "maxItems": 1000,
         "default": [],
         "execution": "wechat",
         "execution_note": "礼包码兑换",
